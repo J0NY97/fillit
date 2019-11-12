@@ -1,0 +1,6 @@
+Fail if:
+- more/less than 4x4
+- more than 4 blocks in 4x4 thing
+- a "not empty" block isnt touching another
+- anything else than "filled char" and "empty char"
+
