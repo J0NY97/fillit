@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:21:24 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/08 15:19:08 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/12 13:38:58 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,27 @@ char **strto2dstr(char *input)
 int	istetriminos(char *input, char c1, char c2)
 {
 	char **str = strto2dstr(input);
-	int coords[4][1][1];
+	int coords[4][2];
+	int x;
+	int y = 0;
+	int filledfound = 0;
 
+	while (y < 4)
+	{
+		x = 0;
+		while (x < 4)
+		{
+			if (str[y][x] == c2)
+			{
+				coords[filledfound][0] = y;
+				coords[filledfound][1] = x;
+				printf("%d found at, y: %d, x: %d\n", filledfound + 1, y, x);
+				filledfound++;
+			}
+			x++;
+		}
+		y++;
+	}
 	(void)c1;
 	(void)c2;
 	return (1);
