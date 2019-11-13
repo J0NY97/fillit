@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:21:24 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/12 13:38:58 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/13 15:29:03 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int fourxfourcheck(char *input)
 			if (cols != 5)
 			{
 				ft_putstr("Wrong amount of cols!: ");
-				ft_putnbr(cols);
+				ft_putnbr(cols - 1);
 				ft_putchar(':');
 				ft_putnbr(rows);
 				return (0);
@@ -47,7 +47,7 @@ int fourxfourcheck(char *input)
 	if (rows != 3)
 	{
 		ft_putstr("Wrong amount of rows: ");
-		ft_putnbr(rows);
+		ft_putnbr(rows + 1);
 	}
 	return (rows == 3);
 }
@@ -114,8 +114,44 @@ char **strto2dstr(char *input)
 	return (str);
 }
 
-int	istetriminos(char *input, char c1, char c2)
+int atleast2(char **input, int arr[4][2], char c2)
 {
+	// this function should only be called from the istetrimions function
+	int connected;
+	int x;
+	int y;
+	int i;
+	char pos[4];	
+
+	connected = 0;
+	i = 0;
+	while (i < 4)
+	{
+		y = arr[i][0];
+		x = arr[i][1];
+		pos[0] = !(x - 1 < 0) ? input[y][x - 1] : 0;
+		pos[1] = !(y - 1 < 0) ? input[y - 1][x] : 0;
+		pos[2] = !(x + 1 > 3) ? input[y][x + 1] : 0;
+		pos[3] = !(y + 1 > 3) ? input[y + 1][x] : 0;
+		if (pos[0] && pos[0] == c2)
+			connected++;
+		if (pos[1] && pos[1] == c2)
+			connected++;
+		if (pos[2] && pos[2] == c2)
+			connected++;
+		if (pos[3] && pos[3] == c2)
+			connected++;
+		i++;
+	}
+	printf("connected: %d\n", connected);
+	if (connected >= 6)
+		return (1);
+	return (0);
+}
+
+int	istetriminos(char *input, char c2)
+{
+	// this functions should be called last of all the validity checks
 	char **str = strto2dstr(input);
 	int coords[4][2];
 	int x;
@@ -138,9 +174,14 @@ int	istetriminos(char *input, char c1, char c2)
 		}
 		y++;
 	}
-	(void)c1;
-	(void)c2;
-	return (1);
+	if (filledfound == 4)
+	{
+		if (atleast2(str, coords, c2))
+			return (1);
+	}
+	else
+		printf("istetriminos: Somehow didnt find 4 filled!\n");
+	return (0);
 }
 
 void	print_error(void)
@@ -165,7 +206,7 @@ int	check_validity(char *input, char c1, char c2)
 		ft_putstr("correctchars: error\n");
 		return (0);
 	}
-	else if (!istetriminos(input, c1, c2))
+	else if (!istetriminos(input, c2))
 	{
 		ft_putstr("istetriminos: error\n");
 		return (0);
@@ -178,6 +219,13 @@ int	check_validity(char *input, char c1, char c2)
 	// return 1 and go back to main and do its shit
 }
 
+void	add_debug(char *map, char *name, int expectedoutput, char c1, char c2)
+{
+	printf("%s\n", map);
+	printf("%s; %d : %d\n", name, expectedoutput, check_validity(map, c1, c2));
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+}
+
 int	main(int argc, char *argv[])
 {
 	char c1 = '.';
@@ -186,31 +234,28 @@ int	main(int argc, char *argv[])
 	char *toofewfilled = ".###\n....\n....\n....";
 	char *wrongchars = "AAAA\n####\nAAAA\nAAAA";
 	char *nottetriminos = "...#\n..#.\n.#..\n#...";
+	char *toomanyrows = "....\n#...\n#...\n#...\n#...";
+	char *toomanycols = "#....\n#....\n#....\n#....";
 	char *correct = "....\n....\n####\n....";
-	char **str = strto2dstr(correct);
+	char *correct2 = "##..\n##..\n....\n....";
+	char *correct3 = ".#..\n###.\n....\n....";
+	/*char **str = strto2dstr(correct);
 
 	int x = 0;
 	while (str[x])
 	{
 		printf("%s\n",str[x]);
 		x++;
-	}
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("%s\n", toomanyfilled);
-	printf("toomanyfilled; 0 : %d\n", check_validity(toomanyfilled, c1, c2));
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("%s\n", toofewfilled);
-	printf("toofewfilled; 0 : %d\n", check_validity(toofewfilled, c1, c2));
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("%s\n", wrongchars);
-	printf("wrongchars; 0 : %d\n", check_validity(wrongchars, c1, c2));
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("%s\n", nottetriminos);
-	printf("nottetriminos: 0 : %d\n", check_validity(nottetriminos, c1, c2));
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("%s\n", correct);
-	printf("correct; 1 : %d\n", check_validity(correct, c1, c2));
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	}*/
+	add_debug(toomanyfilled, "toomanyfilled", 0, c1, c2);
+	add_debug(toofewfilled, "toofewfilled", 0, c1, c2);
+	add_debug(wrongchars, "wrongchar", 0, c1, c2);
+	add_debug(nottetriminos, "nottetriminos", 0, c1, c2);
+	add_debug(toomanyrows, "toomanyrows", 0, c1, c2);
+	add_debug(toomanycols, "toomanycols", 0, c1, c2);
+	add_debug(correct, "correct", 1, c1, c2);
+	add_debug(correct2, "correct2", 1, c1, c2);
+	add_debug(correct3, "correct3", 1, c1, c2);
 	(void)argc;
 	(void)argv;
 	/*if (argc != 2)
