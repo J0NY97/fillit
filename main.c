@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:21:24 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/14 13:45:24 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/14 15:03:51 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ char **strto2dstr(char *input)
 int atleast2(char **input, int arr[4][2], char c2)
 {
 	// this function should only be called from the istetrimions function
+	//
+	// x and y can be removed and just copy paste arr[y][x] everywhere xd
 	int connected;
 	int x;
 	int y;
@@ -239,14 +241,7 @@ int	main(int argc, char *argv[])
 	char *correct = "....\n....\n####\n....";
 	char *correct2 = "##..\n##..\n....\n....";
 	char *correct3 = ".#..\n###.\n....\n....";
-	/*char **str = strto2dstr(correct);
-
-	int x = 0;
-	while (str[x])
-	{
-		printf("%s\n",str[x]);
-		x++;
-	}*/
+	
 	add_debug(toomanyfilled, "toomanyfilled", 0, c1, c2);
 	add_debug(toofewfilled, "toofewfilled", 0, c1, c2);
 	add_debug(wrongchars, "wrongchar", 0, c1, c2);
@@ -258,6 +253,24 @@ int	main(int argc, char *argv[])
 	add_debug(correct3, "correct3", 1, c1, c2);
 	(void)argc;
 	(void)argv;
+
+	/***
+	 * idea for how to get maps from file
+	char ***maps;
+	maps = (char ***)malloc(sizeof(char **) * );
+	char *line;
+	int map = 0;
+	int row = 0;
+	while (get_next_line)
+	{
+		line = gnl_read;
+		if (ft_strcmp(line, "\n")
+			map++;
+		else
+			ft_strdup(maps[map][row], line);
+			row++:
+	}
+	***/
 	/*if (argc != 2)
 	{
 		print_usage(argv[0]);
