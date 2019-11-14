@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tetriminos.h                                       :+:      :+:    :+:   */
+/*   get_nexxt_line.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/14 15:48:12 by nneronin         ###   ########.fr       */
+/*   Created: 2019/10/24 14:38:24 by nneronin          #+#    #+#             */
+/*   Updated: 2019/11/07 15:03:47 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TETRIMINOS_H
-# define TETRIMINOS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
+# define BUFF_SIZE 2056
+# include <stdlib.h>
+# include <unistd.h>
 # include "./libft/libft.h"
-# include "./get_next_line.h"
-# include <stdio.h>
+
+int get_next_line(const int fd, char **line);
 
 #endif
