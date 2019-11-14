@@ -6,16 +6,16 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:21:24 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/13 15:29:03 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/14 13:45:24 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tetriminos.h"
+#include "fillit.h"
 
 void	print_usage(char *progname)
 {
 	ft_putstr(progname);
-	ft_putstr(" only accepts one argument.\n");
+	ft_putstr(": usage error... tidittii.....\n");
 }
 
 int fourxfourcheck(char *input)
