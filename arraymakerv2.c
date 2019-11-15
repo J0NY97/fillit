@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:50:07 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/15 15:22:45 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/15 16:47:22 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	printarray(char **str)
 {
 	int i = 0;
-	printf("%s\n", str[i]);
+	
 	while (str[i])
 	{
 		printf("%s", str[i]);
@@ -63,29 +63,39 @@ int		main(int ac, char **av)
 		int t = 0;
 		while ((t = get_next_line(fd, &line)) == 1)
 		{
-			printf("t: %d\n", t);
+			//printf("t: %d\n", t);
 			if (ft_strcmp(line, "\n") < 0)
 			{
-				printf("%d\n", get_next_line(fd, &line));
+				//printf("line: %s\n", line);
 				i++;
+				printf("\n");
 			}
 			else
 			{
 				if (str[i][0] == '\0')
 				{
-					//printf("str is");
+					printf("%s, make new\n", line);
 					str[i] = ft_strdup(line);
 				}
 				else
-					ft_strjoin(str[i], line);
+				{
+					printf("%s, join\n", line);
+					str[i] = ft_strjoin(str[i], line);
+				}
 			//	ft_str(str[i], line);
 			//	printf("line: %s", line);
 		//		printf("str; %s", str[i]);
-				//ft_strjoin(str[i], "\n");
+				str[i] = ft_strjoin(str[i], "\n");
+			//	printf("%s %d\n", str[i], i);
 			}
 		}
 		close(fd);
 	}
-	printarray(str);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("1: %s\n", str[0]);
+	printf("2: %s\n", str[1]);
+	printf("3: %s\n", str[2]);
+	printf("4: %s\n", str[3]);
+//	printarray(str);
 	return (0);
 }
