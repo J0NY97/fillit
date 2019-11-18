@@ -1,6 +1,16 @@
+<<<<<<< HEAD
 Fail if:
 - more/less than 4x4
 - more than 4 blocks in 4x4 thing
 - a "not empty" block isnt touching another
 - anything else than "filled char" and "empty char"
 
+=======
+Fail if:
+- more/less than 4x4 								\\Done 
+- more than 4 blocks in 4x4 thing					
+- a "not empty" block isnt touching another
+- anything else than "filled char" and "empty char"	\\Done
+- 4x4 separateed with 1 newline						\\Done
+
+>>>>>>> cabe279f61a7e82795f65e7019a0f5218610d61b
