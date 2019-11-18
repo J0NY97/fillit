@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:50:07 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/15 16:47:22 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/18 12:26:34 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,31 @@ int		main(int ac, char **av)
 	int		row;
 	int		nbr_tetri;
 	int i;
+	int x;
 
 	i = 0;
+	x = 0;
 	how_many = 0;
 	if (ac == 2)
 	{
-		// This is to count howm any
+		// This is to count howm any //Should be a separet function in the future.
 		fd = open(av[1], O_RDONLY);
+		//Function checks if is 4x4, how many tetriminos, if separated with 1 \n
 		while (get_next_line(fd, &line) == 1)
 		{
-			printf("%d\n", ft_strcmp(line, "\n"));
-			if (ft_strcmp(line, "\n") < 0)
+			if (x > 4  || ((ft_strcmp(line, "\n") < 0) && x == 0))
+				return (-1);
+			if (x == 4 && (ft_strcmp(line, "\n") < 0))
+			{	
+				x = 0;
 				how_many++;
+			}
+			if (ft_strcmp(line, "\n") > 0)
+			{
+				if (ft_strlen(line) != 4) // || (!ok_chars(line, '#', '.'))) here or after strjoin
+					return (-1);
+				x++;
+			}
 		}
 		printf("%d\n", how_many);
 		str = (char **)malloc(sizeof(char *) * how_many + 1);
