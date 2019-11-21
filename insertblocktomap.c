@@ -55,19 +55,19 @@ int *getRealXandY(int *arr, char **block)
     return (arr);
 }
 
-char	**makenewblock(char emptychar)
+char	**makenewblock(char emptychar, int size)
 {
 	char **newblock;
 	int	i;
 	int x;
 
 	i = 0;
-	newblock = (char **)malloc(sizeof(char *) * 5);
-	while (i < 4)
+	newblock = (char **)malloc(sizeof(char *) * size + 1);
+	while (i < size)
 	{
 		x = 0;
-		newblock[i] = (char *)malloc(sizeof(char) * 5);
-		while (x < 4)
+		newblock[i] = (char *)malloc(sizeof(char) * size + 1);
+		while (x < size)
 		{
 			newblock[i][x] = emptychar;
 			x++;
@@ -263,8 +263,16 @@ char **makeTDown(void)
 	block[0][0] = '#';
 	block[0][1] = '#';
 	block[0][2] = '#';
-	block[3][0] = '#';
+	block[1][2] = '#';
 	return (block);
+}
+
+void	print_block(char **block)
+{
+	printf("%s\n", block[0]);
+    printf("%s\n", block[1]);
+    printf("%s\n", block[2]);
+    printf("%s\n", block[3]);
 }
 
 int main(void)
@@ -283,61 +291,41 @@ int main(void)
     }; */
 	char **map;
 	map = makenewblock('.');
-	printf("%s\n", map[0]);
-    printf("%s\n", map[1]);
-    printf("%s\n", map[2]);
-    printf("%s\n", map[3]);
+	print_block(map);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
 	char **block;
 	block = makenewblock('.');
-    printf("%s\n", block[0]);
-    printf("%s\n", block[1]);
-    printf("%s\n", block[2]);
-    printf("%s\n", block[3]);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	block[1][2] = '#';
-	block[2][1] = '#';
 	block[2][2] = '#';
 	block[3][2] = '#';
-    printf("%s\n", block[0]);
-    printf("%s\n", block[1]);
-    printf("%s\n", block[2]);
-    printf("%s\n", block[3]);
+	block[2][1] = '#';
+	print_block(block);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	int arr[3];
-    getRealXandY(arr, block);
+	getRealXandY(arr, block);
+	
 	char **newblock;
 	newblock = inserttomap(block, arr[1], arr[0]);
-	printf("%s\n", newblock[0]);
-	printf("%s\n", newblock[1]);
-	printf("%s\n", newblock[2]);
-	printf("%s\n", newblock[3]);
+	print_block(newblock);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
- 	printf("%d%d%d\n", arr[0], arr[1], arr[2]);
+	printf("%d%d%d\n", arr[0], arr[1], arr[2]);
 	printf("First block inserted; %d\n", actualinsert(map, newblock, '.', '#', 0));
-	printf("%s\n", map[0]);
-    printf("%s\n", map[1]);
-    printf("%s\n", map[2]);
-    printf("%s\n", map[3]);
+	print_block(map);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-/*	char **newblock2;
+	
+	char **newblock2;
 	newblock2 = makenewblock('.');
-	newblock2[0][0] = '#';
-	newblock2[1][0] = '#';
-	newblock2[2][0] = '#';
-	newblock2[3][0] = '#';
+	newblock2 = makeTLeft();
+	print_block(newblock2);
 	printf("Second block inserted; %d\n", actualinsert(map, newblock2, '.', '#', 1));
-	printf("%s\n", map[0]);
-    printf("%s\n", map[1]);
-    printf("%s\n", map[2]);
-    printf("%s\n", map[3]); */
+	print_block(map);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	
 	char **newblock3;
 	newblock3 = makeSquare();
+	print_block(newblock3);
 	printf("Third block inserted; %d\n", actualinsert(map, newblock3, '.', '#', 2));
-	printf("%s\n", map[0]);
-    printf("%s\n", map[1]);
-    printf("%s\n", map[2]);
-    printf("%s\n", map[3]);
+	print_block(map);
 	return (0);
 }
