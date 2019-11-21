@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "./libft/libft.h"
 
-int *getRealXandY(int *arr, char block[5][5])
+int *getRealXandY(int *arr, char **block)
 {
     int x;
     int y;
@@ -53,27 +55,289 @@ int *getRealXandY(int *arr, char block[5][5])
     return (arr);
 }
 
+char	**makenewblock(char emptychar)
+{
+	char **newblock;
+	int	i;
+	int x;
+
+	i = 0;
+	newblock = (char **)malloc(sizeof(char *) * 5);
+	while (i < 4)
+	{
+		x = 0;
+		newblock[i] = (char *)malloc(sizeof(char) * 5);
+		while (x < 4)
+		{
+			newblock[i][x] = emptychar;
+			x++;
+		}
+		newblock[i][x] = '\0';
+		i++;
+	}
+	newblock[i] = 0;
+	return (newblock);
+}
+
+char	**inserttomap(char **block, int realx, int realy)
+{
+	char **newblock;
+	int y;
+	int x;
+	int realrealx;
+
+	realrealx = realx;
+	y = 0;
+	newblock = makenewblock('.');
+	while (realy < 4)
+	{
+		realx = realrealx;
+		x = 0;
+		while (realx < 4)
+		{
+			if (block[realy][realx] == '#')
+				newblock[y][x] = '#';
+			x++;	
+			realx++;
+		}
+		y++;
+		realy++;
+	}
+	return (newblock);
+}
+
+int *getfirstinsertable(char **map, int start_y, int start_x, char filled)
+{
+	int map_size;
+	int *yx;
+	int end = 0;
+
+	yx = malloc(2);
+	yx[0] = -1;
+	yx[1] = -1;
+	map_size = ft_strlen(map[0]);
+	while (start_y < map_size)
+	{
+		if (end == 1)
+			start_x = 0;
+		while (start_x < map_size)
+		{
+			if (map[start_y][start_x] != filled)
+			{
+				yx[0] = start_y;
+				yx[1] = start_x;
+				return (yx);
+			}
+			start_x++;
+		}
+		end = 1;
+		start_y++;
+	}
+	return (yx);
+}
+
+int	actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth)
+{
+	int *yx;
+	int y = 0;
+	int x = 0;
+	int end = 0;
+	int inserted = 0;
+
+	yx = malloc(2);
+	yx = getfirstinsertable(map, 0, howmanieth, '#');
+	if (yx[0] >= 0 && yx[1] >= 0)
+	{
+		while (block[y])
+		{
+			if (end == 1)
+				x = 0;
+			while (block[y][x])
+			{
+				printf("%c", block[y][x]);
+				if (block[y][x] == filledchar)
+				{
+					printf("found filled inblock: %d, %d\n", y, x);
+					if (map[yx[0] + y][yx[1] + x] == emptychar)
+					{
+						printf("the same is emtpy in map: %d, %d\n", yx[0] + y, yx[1] + x);
+						map[yx[0] + y][yx[1] + x] = filledchar;
+						inserted++;
+					}
+				}
+				x++;
+			}
+			printf("\n");
+			end = 1;
+			y++;
+		}
+		if (inserted == 4)
+		{
+			printf("yes, %d, %d\n", yx[0], yx[1]);
+			return (1);
+		}
+		printf("Only %d inserted!\n", inserted);
+		return (0);
+	}
+	printf("No, %d, %d\n", yx[0], yx[1]);
+	return (0);
+}
+
+char **makeSquare(void)
+{
+	char **block;
+
+	block = makenewblock('.');
+	block[0][0] = '#';
+	block[0][1] = '#';
+	block[1][0] = '#';
+	block[1][1] = '#';
+	return (block);
+}
+
+char **makeLineVertical(void)
+{
+	char **block;
+
+	block = makenewblock('.');
+	block[0][0] = '#';
+	block[1][0] = '#';
+	block[2][0] = '#';
+	block[3][0] = '#';
+	return (block);
+}
+
+char **makeLineHorizontal(void)
+{
+	char **block;
+
+	block = makenewblock('.');
+	block[0][0] = '#';
+	block[0][1] = '#';
+	block[0][2] = '#';
+	block[0][3] = '#';
+	return (block);
+}
+
+char **makeTLeft(void)
+{
+	char **block;
+
+	block = makenewblock('.');
+	block[0][1] = '#';
+	block[1][0] = '#';
+	block[1][1] = '#';
+	block[2][1] = '#';
+	return (block);
+}
+
+char **makeTUp(void)
+{
+	char **block;
+
+	block = makenewblock('.');
+	block[1][0] = '#';
+	block[1][1] = '#';
+	block[1][2] = '#';
+	block[0][1] = '#';
+	return (block);
+}
+
+char **makeTRight(void)
+{
+	char **block;
+
+	block = makenewblock('.');
+	block[0][0] = '#';
+	block[1][0] = '#';
+	block[2][0] = '#';
+	block[1][1] = '#';
+	return (block);
+}
+
+char **makeTDown(void)
+{
+	char **block;
+
+	block = makenewblock('.');
+	block[0][0] = '#';
+	block[0][1] = '#';
+	block[0][2] = '#';
+	block[3][0] = '#';
+	return (block);
+}
+
 int main(void)
 {
-    char map[4][4] = {
+   /* char map[4][4] = {
         {"...."},
         {"...."},
         {"...."},
         {"...."}
-    };
-    char block[5][5] = {
+    };*/
+   /* char block[5][5] = {
         {"....\0"},
         {"..#.\0"},
         {".##.\0"},
         {"..#.\0"},
-    };
+    }; */
+	char **map;
+	map = makenewblock('.');
+	printf("%s\n", map[0]);
+    printf("%s\n", map[1]);
+    printf("%s\n", map[2]);
+    printf("%s\n", map[3]);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	char **block;
+	block = makenewblock('.');
     printf("%s\n", block[0]);
     printf("%s\n", block[1]);
     printf("%s\n", block[2]);
     printf("%s\n", block[3]);
-    int arr[3];
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	block[1][2] = '#';
+	block[2][1] = '#';
+	block[2][2] = '#';
+	block[3][2] = '#';
+    printf("%s\n", block[0]);
+    printf("%s\n", block[1]);
+    printf("%s\n", block[2]);
+    printf("%s\n", block[3]);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	int arr[3];
     getRealXandY(arr, block);
-    printf("%d%d%d\n", arr[0], arr[1], arr[2]);
-
-    return (0);
+	char **newblock;
+	newblock = inserttomap(block, arr[1], arr[0]);
+	printf("%s\n", newblock[0]);
+	printf("%s\n", newblock[1]);
+	printf("%s\n", newblock[2]);
+	printf("%s\n", newblock[3]);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+ 	printf("%d%d%d\n", arr[0], arr[1], arr[2]);
+	printf("First block inserted; %d\n", actualinsert(map, newblock, '.', '#', 0));
+	printf("%s\n", map[0]);
+    printf("%s\n", map[1]);
+    printf("%s\n", map[2]);
+    printf("%s\n", map[3]);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+/*	char **newblock2;
+	newblock2 = makenewblock('.');
+	newblock2[0][0] = '#';
+	newblock2[1][0] = '#';
+	newblock2[2][0] = '#';
+	newblock2[3][0] = '#';
+	printf("Second block inserted; %d\n", actualinsert(map, newblock2, '.', '#', 1));
+	printf("%s\n", map[0]);
+    printf("%s\n", map[1]);
+    printf("%s\n", map[2]);
+    printf("%s\n", map[3]); */
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	char **newblock3;
+	newblock3 = makeSquare();
+	printf("Third block inserted; %d\n", actualinsert(map, newblock3, '.', '#', 2));
+	printf("%s\n", map[0]);
+    printf("%s\n", map[1]);
+    printf("%s\n", map[2]);
+    printf("%s\n", map[3]);
+	return (0);
 }
