@@ -314,12 +314,7 @@ int rec(char **block, char **map, int x, int how_many, int y)
 	{
 		printf("1nd if\n");
 		x = 0;
-		rec(block, map, x, how_many, y);
-	}
-	if (y == how_many)
-	{
-		printf("nagoba5\n");
-		return (1);
+		return (rec(block, map, x, how_many, y));
 	}
 	if ((actualinsert(map, strto2dstr(block[x]), '.', '#', x) == 1) && block[x] != NULL)
 	{
@@ -334,7 +329,7 @@ int rec(char **block, char **map, int x, int how_many, int y)
 		}
 		x++;
 		printf("nagoba2\n");
-		rec(block, map, x, how_many, y);
+		return(rec(block, map, x, how_many, y));
 	}
 	if (y > how_many)
 	{
@@ -346,14 +341,14 @@ int rec(char **block, char **map, int x, int how_many, int y)
 	if (block[x] == NULL)
 	{
 		printf("nagoba4\n");
-		rec(block, map, x++, how_many, y);
+		return (rec(block, map, x++, how_many, y));
 	}
 	if (actualinsert(map, strto2dstr(block[x]), '.', '#', x) == 0)
 	{
 		printf("4nd if\n");
 		y++;
 		printf("nagoba3\n");
-		rec(block, map, x++, how_many, y);
+		return (rec(block, map, x++, how_many, y));
 	}
 	return(-1);
 }
