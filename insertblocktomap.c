@@ -62,11 +62,11 @@ char	**makenewblock(char emptychar, int size)
 	int x;
 
 	i = 0;
-	newblock = (char **)malloc(sizeof(char *) * size + 1);
+	newblock = (char **)malloc(sizeof(char *) * (size + 1));
 	while (i < size)
 	{
 		x = 0;
-		newblock[i] = (char *)malloc(sizeof(char) * size + 1);
+		newblock[i] = (char *)malloc(sizeof(char) * (size + 1));
 		while (x < size)
 		{
 			newblock[i][x] = emptychar;
@@ -88,7 +88,7 @@ char	**inserttomap(char **block, int realx, int realy)
 
 	realrealx = realx;
 	y = 0;
-	newblock = makenewblock('.');
+	newblock = makenewblock('.', 4);
 	while (realy < 4)
 	{
 		realx = realrealx;
@@ -187,7 +187,7 @@ char **makeSquare(void)
 {
 	char **block;
 
-	block = makenewblock('.');
+	block = makenewblock('.', 4);
 	block[0][0] = '#';
 	block[0][1] = '#';
 	block[1][0] = '#';
@@ -199,7 +199,7 @@ char **makeLineVertical(void)
 {
 	char **block;
 
-	block = makenewblock('.');
+	block = makenewblock('.', 4);
 	block[0][0] = '#';
 	block[1][0] = '#';
 	block[2][0] = '#';
@@ -211,7 +211,7 @@ char **makeLineHorizontal(void)
 {
 	char **block;
 
-	block = makenewblock('.');
+	block = makenewblock('.', 4);
 	block[0][0] = '#';
 	block[0][1] = '#';
 	block[0][2] = '#';
@@ -223,7 +223,7 @@ char **makeTLeft(void)
 {
 	char **block;
 
-	block = makenewblock('.');
+	block = makenewblock('.', 4);
 	block[0][1] = '#';
 	block[1][0] = '#';
 	block[1][1] = '#';
@@ -235,7 +235,7 @@ char **makeTUp(void)
 {
 	char **block;
 
-	block = makenewblock('.');
+	block = makenewblock('.', 4);
 	block[1][0] = '#';
 	block[1][1] = '#';
 	block[1][2] = '#';
@@ -247,7 +247,7 @@ char **makeTRight(void)
 {
 	char **block;
 
-	block = makenewblock('.');
+	block = makenewblock('.', 4);
 	block[0][0] = '#';
 	block[1][0] = '#';
 	block[2][0] = '#';
@@ -259,7 +259,7 @@ char **makeTDown(void)
 {
 	char **block;
 
-	block = makenewblock('.');
+	block = makenewblock('.', 4);
 	block[0][0] = '#';
 	block[0][1] = '#';
 	block[0][2] = '#';
@@ -269,10 +269,13 @@ char **makeTDown(void)
 
 void	print_block(char **block)
 {
-	printf("%s\n", block[0]);
-    printf("%s\n", block[1]);
-    printf("%s\n", block[2]);
-    printf("%s\n", block[3]);
+	int i = 0;
+
+	while (block[i])
+	{
+		printf("%s\n", block[i]);
+		i++;
+	}
 }
 
 int main(void)
@@ -290,12 +293,12 @@ int main(void)
         {"..#.\0"},
     }; */
 	char **map;
-	map = makenewblock('.');
+	map = makenewblock('.', 4);
 	print_block(map);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
 	char **block;
-	block = makenewblock('.');
+	block = makenewblock('.', 4);
 	block[1][2] = '#';
 	block[2][2] = '#';
 	block[3][2] = '#';
@@ -315,7 +318,6 @@ int main(void)
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	
 	char **newblock2;
-	newblock2 = makenewblock('.');
 	newblock2 = makeTLeft();
 	print_block(newblock2);
 	printf("Second block inserted; %d\n", actualinsert(map, newblock2, '.', '#', 1));
@@ -326,6 +328,10 @@ int main(void)
 	newblock3 = makeSquare();
 	print_block(newblock3);
 	printf("Third block inserted; %d\n", actualinsert(map, newblock3, '.', '#', 2));
+	print_block(map);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+	map = makenewblock('.', 5);
 	print_block(map);
 	return (0);
 }
