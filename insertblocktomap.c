@@ -278,6 +278,126 @@ void	print_block(char **block)
 	}
 }
 
+char **strto2dstr(char *input)
+{
+	char **str;
+	int y;
+	int x;
+
+	str = ft_memalloc(sizeof(char *) * 5);
+	str[0] = ft_memalloc(5);
+	str[1] = ft_memalloc(5);
+	str[2] = ft_memalloc(5);
+	str[3] = ft_memalloc(5);
+	str[4] = 0;
+	y = 0;
+	while (y < 4)
+	{
+		x = 0;
+		while (x < 4)
+		{
+			str[y][x] = *input;
+			input++;
+			x++;
+		}
+		str[y][x] = '\0';
+		input++;
+		y++;
+	}
+
+	return (str);
+}
+
+int rec(char **block, char **map, int x, int how_many, int y)
+{
+	if (x > how_many)
+	{
+		printf("1nd if\n");
+		x = 0;
+		rec(block, map, x, how_many, y);
+	}
+	if (y == how_many)
+	{
+		printf("nagoba5\n");
+		return (1);
+	}
+	if ((actualinsert(map, strto2dstr(block[x]), '.', '#', x) == 1) && block[x] != NULL)
+	{
+		printf("2nd if\n");
+		print_block(map);
+		y++;
+		block[x] = NULL;
+		if (y == how_many)
+		{
+			printf("nagoba\n");
+			return (1); //may be return (map)?/?
+		}
+		x++;
+		printf("nagoba2\n");
+		rec(block, map, x, how_many, y);
+	}
+	if (y > how_many)
+	{
+		printf("3nd if\n");
+		if (block[x] != NULL)
+			return (0);
+		return(1); // read previous comment
+	}
+	if (block[x] == NULL)
+	{
+		printf("nagoba4\n");
+		rec(block, map, x++, how_many, y);
+	}
+	if (actualinsert(map, strto2dstr(block[x]), '.', '#', x) == 0)
+	{
+		printf("4nd if\n");
+		y++;
+		printf("nagoba3\n");
+		rec(block, map, x++, how_many, y);
+	}
+	return(-1);
+}
+
+int pre_rec(char **blocks, int how_many)
+{
+	// blocks[which block][content]
+	int x;
+	int y;
+	char **tmp;
+	int size;
+	char **map;
+	int z = 0;
+
+	x = 0;
+	y = 0;
+	size = 4;
+	tmp = (char **)malloc(sizeof(char *) * (size));
+	while (x < how_many)
+	{
+		tmp[x] = ft_strdup(blocks[x]);
+		x++;
+	}
+	x= 0;
+	map = makenewblock('.', size);
+	while ((z = rec(blocks, map, x, how_many, y)) == 0)
+	{
+		printf("suicide\n");
+		x++;
+		for (int i = 0; i < how_many; i++)
+		{
+			blocks[i] = ft_strdup(tmp[i]);
+		}
+		if (x == how_many)
+		{
+			x = 0;
+			map = makenewblock('.', size++);
+		}
+	}
+	printf("z: %d\n", z);
+	//print_block(map);
+	return (1);
+}
+
 int main(void)
 {
    /* char map[4][4] = {
@@ -292,7 +412,7 @@ int main(void)
         {".##.\0"},
         {"..#.\0"},
     }; */
-	char **map;
+/*	char **map;
 	map = makenewblock('.', 4);
 	print_block(map);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -332,6 +452,15 @@ int main(void)
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
 	map = makenewblock('.', 5);
-	print_block(map);
+	print_block(map);*/
+
+	char **blocks;
+	int how_many = 4;
+	blocks[0] = "####\n....\n....\n....";
+	blocks[1] = "####\n....\n....\n....";
+	blocks[2] = "####\n....\n....\n....";
+	blocks[3] = "####\n....\n....\n....";
+	pre_rec(blocks, how_many);
+//	printf("%s",blocks[0]);
 	return (0);
 }
