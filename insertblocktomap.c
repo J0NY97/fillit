@@ -143,7 +143,9 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	int x = 0;
 	int end = 0;
 	int inserted = 0;
-
+	printf("\033[0;%dm", color);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("\033[0m"); 
 	yx = malloc(2);
 	yx = getfirstinsertable(map, 0, howmanieth, '#');
 	if (yx[0] >= 0 && yx[1] >= 0)
@@ -154,7 +156,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 				x = 0;
 			while (block[y][x])
 			{
-				printf("%c", block[y][x]);
+			//	printf("%c", block[y][x]);
 				if (block[y][x] == filledchar)
 				{
 					printf("found filled inblock: %d, %d\n", y, x);
@@ -448,13 +450,13 @@ int main(void)
 
 	map = makenewblock('.', 5);
 	print_block(map);*/
-
+	
 	char **blocks;
 	int how_many = 4;
 	blocks[0] = "####\n....\n....\n....";
-	blocks[1] = "####\n....\n....\n....";
-	blocks[2] = "####\n....\n....\n....";
-	blocks[3] = "####\n....\n....\n....";
+	blocks[1] = "##..\n#...\n#...\n....";
+	blocks[2] = "##..\n##..\n....\n....";
+	blocks[3] = "##..\n.#..\n.#..\n....";
 	pre_rec(blocks, how_many);
 //	printf("%s",blocks[0]);
 	return (0);
