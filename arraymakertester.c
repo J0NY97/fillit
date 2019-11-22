@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:50:07 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/22 14:45:12 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/22 15:46:59 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ int		part1(char *file)
 	printf("%d\n", fd);
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (x > 4  || ((ft_strcmp(line, "\n") < 0) && x == 0))
+		if (x == 4  && ((ft_strcmp(line, "\n") != 0)))
 			return (-1);
-		if (x == 4 && (ft_strcmp(line, "\n") < 0))
+		if (ft_strcmp(line, "\n") > 0) //line has shit
+		{
+			if (ft_strlen(line) != 4)
+				return (-2);
+			x++;
+		}
+		if (x == 4 && ((ft_strcmp(line, "\n") == 0) || ft_strchr(line, '\0'))) //if x is 4 and is empty line
 		{
 			x = 0;
 			how_many++;
-		}
-		if (ft_strcmp(line, "\n") > 0)
-		{
-			if (ft_strlen(line) != 4)
-				return (-1);
-			x++;
 		}
 	}
 	close(fd);
@@ -116,7 +116,7 @@ int main(int ac, char **av)
 					str = part2(file, how_many, str);
 					for (int i = 0; str[i]; i++)
 					{
-						printf("%d: %s\n", i, str[0]);
+						printf("%d: %s\n", i, str[i]);
 					}
 				}
 					printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
