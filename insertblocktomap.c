@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "./libft/libft.h"
 
+void	map_char_delet(char **map, char c);
+
 int *getRealXandY(int *arr, char **block)
 {
     int x;
@@ -143,43 +145,60 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	int x = 0;
 	int end = 0;
 	int inserted = 0;
-	printf("\033[0;%dm", color);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("\033[0m"); 
+	int timeout = 0;
+	char c = 'A' + howmanieth;
+	int startx = howmanieth;
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"); 
 	yx = malloc(2);
-	yx = getfirstinsertable(map, 0, howmanieth, '#');
-	if (yx[0] >= 0 && yx[1] >= 0)
+	while (inserted != 4 && timeout < 5)
 	{
-		while (block[y])
+		yx = getfirstinsertable(map, 0, startx, filledchar);
+		if (yx[0] == -1 || yx[1] == -1)
 		{
-			if (end == 1)
-				x = 0;
-			while (block[y][x])
+			printf("yx returned: %d, %d\n", yx[0], yx[1]);
+			return (0);
+		}
+		if (yx[0] >= 0 && yx[1] >= 0)
+		{
+			while (block[y])
 			{
-			//	printf("%c", block[y][x]);
-				if (block[y][x] == filledchar)
+				if (end == 1)
+					x = 0;
+				while (block[y][x])
 				{
-					printf("found filled inblock: %d, %d\n", y, x);
-					if (map[yx[0] + y][yx[1] + x] == emptychar)
+				//	printf("%c", block[y][x]);
+					if (block[y][x] == filledchar)
 					{
-						printf("the same is emtpy in map: %d, %d\n", yx[0] + y, yx[1] + x);
-						map[yx[0] + y][yx[1] + x] = filledchar;
-						inserted++;
+						printf("found filled inblock: %d, %d\n", y, x);
+						if (map[yx[0] + y][yx[1] + x] == emptychar)
+						{
+							printf("the same is emtpy in map: %d, %d\n", yx[0] + y, yx[1] + x);
+							map[yx[0] + y][yx[1] + x] = c;
+							inserted++;
+						}
 					}
+					x++;
 				}
-				x++;
+				printf("\n");
+				end = 1;
+				y++;
 			}
-			printf("\n");
-			end = 1;
-			y++;
+			if (inserted == 4)
+			{
+				printf("yes, %d, %d\n", yx[0], yx[1]);
+				return (1);
+			}
+			else
+			{
+				printf("Only %d inserted!\n", inserted);
+				inserted = 0;
+				map_char_delet(map, c);
+				startx++;
+				timeout++;
+				printf("Inserted: %d startx: %d timeout: %d char: %c\n", inserted, startx, timeout, 'A' + howmanieth);
+			}
+			//return (0);
 		}
-		if (inserted == 4)
-		{
-			printf("yes, %d, %d\n", yx[0], yx[1]);
-			return (1);
-		}
-		printf("Only %d inserted!\n", inserted);
-		return (0);
 	}
 	printf("No, %d, %d\n", yx[0], yx[1]);
 	return (0);
@@ -409,10 +428,10 @@ int main(void)
         {".##.\0"},
         {"..#.\0"},
     }; */
-/*	char **map;
+	char **map;
 	map = makenewblock('.', 4);
 	print_block(map);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~MAP~~~~~~~~~~~~~~~\n");
 
 	char **block;
 	block = makenewblock('.', 4);
@@ -421,43 +440,48 @@ int main(void)
 	block[3][2] = '#';
 	block[2][1] = '#';
 	print_block(block);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~BLOCK~~~~~~~~~~~~~~~\n");
 	int arr[3];
 	getRealXandY(arr, block);
 	
 	char **newblock;
 	newblock = inserttomap(block, arr[1], arr[0]);
 	print_block(newblock);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("~~~~~~~~~~~~~~~~~~~NEWBLOCK~~~~~~~~~~~~~~~~\n");
 	printf("%d%d%d\n", arr[0], arr[1], arr[2]);
 	printf("First block inserted; %d\n", actualinsert(map, newblock, '.', '#', 0));
 	print_block(map);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~MAP~~~~~~~~~~~~~~\n");
 	
 	char **newblock2;
 	newblock2 = makeTLeft();
 	print_block(newblock2);
 	printf("Second block inserted; %d\n", actualinsert(map, newblock2, '.', '#', 1));
 	print_block(map);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("~~~~~~~~~~~~~~~~~~~~NEWBLOCK2~~~~~~~~~~~~~~~\n");
 	
 	char **newblock3;
 	newblock3 = makeSquare();
 	print_block(newblock3);
 	printf("Third block inserted; %d\n", actualinsert(map, newblock3, '.', '#', 2));
 	print_block(map);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~~~NEWBLOCK3~~~~~~~~~~~~\n");
 
 	map = makenewblock('.', 5);
-	print_block(map);*/
+	print_block(map);
+
+/*	char **map = makenewblock('#', 4);
+	int *yx;
+	yx = getfirstinsertable(map, 0, 0, '#');
+	printf("%d, %d", yx[0], yx[1]);*/
 	
-	char **blocks;
+/*	char **blocks;
 	int how_many = 4;
 	blocks[0] = "####\n....\n....\n....";
 	blocks[1] = "##..\n#...\n#...\n....";
 	blocks[2] = "##..\n##..\n....\n....";
-	blocks[3] = "##..\n.#..\n.#..\n....";
-	pre_rec(blocks, how_many);
+	blocks[3] = "##..\n.#..\n.#..\n....";*/
+//	pre_rec(blocks, how_many);
 //	printf("%s",blocks[0]);
 	return (0);
 }
