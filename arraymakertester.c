@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:50:07 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/22 14:22:50 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/22 14:45:12 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,10 @@ int main(int ac, char **av)
 				else
 				{
 					str = part2(file, how_many, str);
-					printf("1: %s\n", str[0]);
-					printf("2: %s\n", str[1]);
-					printf("3: %s\n", str[2]);
-					printf("4: %s\n", str[3]);
+					for (int i = 0; str[i]; i++)
+					{
+						printf("%d: %s\n", i, str[0]);
+					}
 				}
 					printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 			}
