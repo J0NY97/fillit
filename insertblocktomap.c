@@ -3,7 +3,16 @@
 #include "./libft/libft.h"
 
 void	map_char_delet(char **map, char c);
+void	print_block(char **block)
+{
+	int i = 0;
 
+	while (block[i])
+	{
+		printf("%s\n", block[i]);
+		i++;
+	}
+}
 int *getRealXandY(int *arr, char **block)
 {
     int x;
@@ -108,16 +117,19 @@ char	**inserttomap(char **block, int realx, int realy)
 	return (newblock);
 }
 
-int *getfirstinsertable(char **map, int start_y, int start_x, char filled)
+int *getfirstinsertable(char **map, int start_x, char filled)
 {
 	int map_size;
 	int *yx;
 	int end = 0;
+	int start_y;
 
 	yx = malloc(2);
 	yx[0] = -1;
 	yx[1] = -1;
 	map_size = ft_strlen(map[0]);
+	start_y = start_x / map_size;
+	printf("start_y: %d\n", start_y);
 	while (start_y < map_size)
 	{
 		if (end == 1)
@@ -152,7 +164,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	yx = malloc(2);
 	while (inserted != 4 && timeout < 5)
 	{
-		yx = getfirstinsertable(map, 0, startx, filledchar);
+		yx = getfirstinsertable(map, startx, filledchar);
 		if (yx[0] == -1 || yx[1] == -1)
 		{
 			printf("yx returned: %d, %d\n", yx[0], yx[1]);
@@ -192,8 +204,13 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 			{
 				printf("Only %d inserted!\n", inserted);
 				inserted = 0;
+				print_block(map);
+				printf("\n");
+				print_block(block);
 				map_char_delet(map, c);
 				startx++;
+				y = 0;
+				x = 0;
 				timeout++;
 				printf("Inserted: %d startx: %d timeout: %d char: %c\n", inserted, startx, timeout, 'A' + howmanieth);
 			}
@@ -288,16 +305,7 @@ char **makeTDown(void)
 	return (block);
 }
 
-void	print_block(char **block)
-{
-	int i = 0;
 
-	while (block[i])
-	{
-		printf("%s\n", block[i]);
-		i++;
-	}
-}
 
 char **strto2dstr(char *input)
 {
@@ -465,7 +473,7 @@ int main(void)
 	print_block(newblock3);
 	printf("Third block inserted; %d\n", actualinsert(map, newblock3, '.', '#', 2));
 	print_block(map);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~NEWBLOCK3~~~~~~~~~~~~\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~~~MAP after increase size~~~~~~~~~~~~\n");
 
 	map = makenewblock('.', 5);
 	print_block(map);
