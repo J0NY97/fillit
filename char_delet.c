@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 11:32:55 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/22 11:48:29 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:49:27 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	 map_char_delet(char **map, char c)
 
 	x = 0;
 	y = 0;
-	while(y != 5)
+	while(y != 4444)
 	{
 		while(x != '\n')
 		{
