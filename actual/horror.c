@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/23 12:07:09 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/23 12:54:32 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	recursive(char **block, char **map, int x, int y, int how_many)
 	}
 	return (-1);
 }
-
+/*
 int main(int ac, char **av)
 {
 	char	**str;
@@ -121,4 +121,4 @@ int main(int ac, char **av)
 		return (1);
 	}
 	return (0);
-}
+}*/

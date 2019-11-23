@@ -120,7 +120,7 @@ char	**inserttomap(char **block, int realx, int realy)
 int *getfirstinsertable(char **map, int start_x, char filled)
 {
 	int map_size;
-int *yx;
+	int *yx;
 	int end = 0;
 	int start_y;
 
@@ -129,6 +129,7 @@ int *yx;
 	yx[1] = -1;
 	map_size = ft_strlen(map[0]);
 	start_y = start_x / map_size;
+	start_x = start_x % map_size;
 	while (start_y < map_size)
 	{
 		if (end == 1)
@@ -151,7 +152,9 @@ int *yx;
 
 int	actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth)
 {
+	printf("INside actualinsert\n");
 	int *yx;
+	int *realyx;
 	int y = 0;
 	int x = 0;
 	int end = 0;
@@ -160,7 +163,10 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	char c = 'A' + howmanieth;
 	int startx = howmanieth;
 	yx = malloc(2);
-	while (inserted != 4 && timeout < 5)
+	realyx = malloc(2);
+	realyx = getRealXandY(realyx, block);
+	block = inserttomap(block, realyx[1], realyx[0]);
+	while (inserted != 4) //&& timeout < 5)
 	{
 		yx = getfirstinsertable(map, startx, filledchar);
 		if (yx[0] == -1 || yx[1] == -1)
@@ -199,99 +205,13 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 				startx++;
 				y = 0;
 				x = 0;
-				timeout++;
+			//	timeout++;
 			}
 			//return (0);
 		}
 	}
 	return (0);
 }
-
-char **makeSquare(void)
-{
-	char **block;
-
-	block = makenewblock('.', 4);
-	block[0][0] = '#';
-	block[0][1] = '#';
-	block[1][0] = '#';
-	block[1][1] = '#';
-	return (block);
-}
-
-char **makeLineVertical(void)
-{
-	char **block;
-
-	block = makenewblock('.', 4);
-	block[0][0] = '#';
-	block[1][0] = '#';
-	block[2][0] = '#';
-	block[3][0] = '#';
-	return (block);
-}
-
-char **makeLineHorizontal(void)
-{
-	char **block;
-
-	block = makenewblock('.', 4);
-	block[0][0] = '#';
-	block[0][1] = '#';
-	block[0][2] = '#';
-	block[0][3] = '#';
-	return (block);
-}
-
-char **makeTLeft(void)
-{
-	char **block;
-
-	block = makenewblock('.', 4);
-	block[0][1] = '#';
-	block[1][0] = '#';
-	block[1][1] = '#';
-	block[2][1] = '#';
-	return (block);
-}
-
-char **makeTUp(void)
-{
-	char **block;
-
-	block = makenewblock('.', 4);
-	block[1][0] = '#';
-	block[1][1] = '#';
-	block[1][2] = '#';
-	block[0][1] = '#';
-	return (block);
-}
-
-char **makeTRight(void)
-{
-	char **block;
-
-	block = makenewblock('.', 4);
-	block[0][0] = '#';
-	block[1][0] = '#';
-	block[2][0] = '#';
-	block[1][1] = '#';
-	return (block);
-}
-
-char **makeTDown(void)
-{
-	char **block;
-
-	block = makenewblock('.', 4);
-	block[0][0] = '#';
-	block[0][1] = '#';
-	block[0][2] = '#';
-	block[1][2] = '#';
-	return (block);
-}
-
-
 
 char **strto2dstr(char *input)
 {
@@ -319,6 +239,5 @@ char **strto2dstr(char *input)
 		input++;
 		y++;
 	}
-
 	return (str);
 }
