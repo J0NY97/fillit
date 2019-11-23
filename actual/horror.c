@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/23 12:54:32 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/23 17:06:19 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ int		pre_rec(int how_many, char **block)
 	char **tmp;
 	int size;
 	char **map;
+	int timeout;
 
 	x = 0;
 	y = 1;
 	how_many = 4;
 	size = 4;
+	timeout = 0;
 	map = makenewblock('.', size);
 	printf("pre_rec\n");
-	recursive(block, map, x, y, how_many);
+	recursive(block, map, x, y, how_many, timeout);
 			//if (x == how_many)
 			//{
 			//	x = 0;
@@ -52,73 +54,51 @@ int		pre_rec(int how_many, char **block)
 	return (1);
 }
 
-int	recursive(char **block, char **map, int x, int y, int how_many)
+int	recursive(char **block, char **map, int x, int y, int how_many, int timeout)
 {
 	int tmp;
 	int tmp2;
 	
 	tmp2 = how_many;
 	tmp = y;
-	//if (block[x] == 0)
-	//	x = 0;
-	if (ft_2dstrchr(map, 'A' + x) == 0)
+	timeout++;
+	if (how_many == x || timeout == 30)
+		return (1);
+	if (ft_2dstrchr(map, 'A' + x) == 1)
 	{
-		if((actualinsert(map, strto2dstr(block[x]), '.', '#', x) == 1))
-		{
-			printf("%d\n", ('A' + x));
-			printf("actualinsert\n");
-			x++;
-			if (how_many == x)
-			{
-				printf("return (1);");
-				return (1);
-			}
-			print_block(map);
-			printf("End od actual\n");
-			return(recursive(block, map, x, y, how_many));
-		}
+		x++;
+		return(recursive(block, map, x, y, how_many, timeout));
+	}
+	if((actualinsert(map, strto2dstr(block[x]), '.', '#', x) == 1))
+	{
+		x++;
+		printf("V===========================V\n");
+		print_block(map);
+		printf("x = %d\n", x);
+		printf("A===========================A\n");
+		if (how_many == x)
+			x = 0;
+		return(recursive(block, map, x, y, how_many, timeout));
 	}
 	else
 	{
-		while(how_many != x)
+		while (how_many != x)
 		{
 			map_char_delet(map, 'A' + how_many);
 			how_many--;
-
 		}
 		while (y >= 0)
 		{
 			map_char_delet(map, 'A' + (x - y));
 			y--;
 		}
-		tmp++;
+		//tmp++;
 		y = tmp;
 		how_many = tmp2;
-		return(recursive(block, map, x, y, how_many));
+		printf("what is x: %d\n", x);
+		printf("what is y: %d\n", y);
+		print_block(map);
+		return(recursive(block, map, x, y, how_many, timeout));
 	}
-	return (-1);
+	return (1);
 }
-/*
-int main(int ac, char **av)
-{
-	char	**str;
-	int		how_many;
-	
-	str = NULL;
-	if (ac == 2)
-	{
-		printf("Here");
-		how_many = part1(av[1]);
-		printf("%d\n", how_many);
-		str = part2(av[1], how_many, str);
-		printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-		printf("1: %s\n", str[0]);
-		printf("2: %s\n", str[1]);
-		printf("3: %s\n", str[2]);
-		printf("4: %s\n", str[3]);
-		printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");		
-		pre_rec(how_many, str);
-		return (1);
-	}
-	return (0);
-}*/
