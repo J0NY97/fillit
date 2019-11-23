@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/23 11:13:19 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/23 15:04:38 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int		atleast2(char **input, int arr[4][2], char c2);
 int		correctchars(char *input, char c1, char c2);
 char	**part2(char *file, int how_many, char **str);
 int		part1(char *file);
+int		validity_check(char *str, char emptychar, char filledchar);
 
 #endif

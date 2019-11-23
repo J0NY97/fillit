@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 13:38:52 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/23 11:03:21 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/23 15:05:45 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,19 @@ int	istetriminos(char *input, char c2)
 		if (atleast2(str, coords, c2))
 			return (1);
 	return (0);
+}
+
+int	validity_check(char *str, char emptychar, char filledchar)
+{
+	if (!correctchars(str, emptychar, filledchar))
+	{
+		printf("Not correct chars in: %s\n", str);
+		return (0);
+	}
+	else if (!istetriminos(str, filledchar))
+	{
+		printf("Not correct tetriminos in: \n%s\n", str);
+		return (0);
+	}
+	return (1);
 }
