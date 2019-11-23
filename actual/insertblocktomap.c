@@ -13,6 +13,27 @@ void	print_block(char **block)
 		i++;
 	}
 }
+
+int	*get_size(char **block)
+{
+	int *arr;
+	int size_x;
+	int size_y;
+
+	size_y = 0;
+	arr = malloc(2);
+	while (block[size_y])
+	{
+		size_x = 0;
+		while (block[size_y][size_x])
+			size_x++;
+		size_y++;
+	}
+	arr[0] = size_y;
+	arr[1] = size_x;
+	return (arr);
+}
+
 int *getRealXandY(int *arr, char **block)
 {
     int x;
@@ -117,7 +138,7 @@ char	**inserttomap(char **block, int realx, int realy)
 	return (newblock);
 }
 
-int *getfirstinsertable(char **map, int start_x, char filled)
+int *getfirstinsertable(char **map, int start_x, char empty)
 {
 	int map_size;
 	int *yx;
@@ -130,13 +151,13 @@ int *getfirstinsertable(char **map, int start_x, char filled)
 	map_size = ft_strlen(map[0]);
 	start_y = start_x / map_size;
 	start_x = start_x % map_size;
-	while (start_y < map_size)
+	while (start_y <= map_size)
 	{
 		if (end == 1)
 			start_x = 0;
 		while (start_x < map_size)
 		{
-			if (map[start_y][start_x] != filled)
+			if (map[start_y][start_x] == empty)
 			{
 				yx[0] = start_y;
 				yx[1] = start_x;
@@ -162,13 +183,15 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	int timeout = 0;
 	char c = 'A' + howmanieth;
 	int startx = howmanieth;
+
 	yx = malloc(2);
 	realyx = malloc(2);
 	realyx = getRealXandY(realyx, block);
 	block = inserttomap(block, realyx[1], realyx[0]);
 	while (inserted != 4) //&& timeout < 5)
 	{
-		yx = getfirstinsertable(map, startx, filledchar);
+		yx = getfirstinsertable(map, startx, emptychar);
+		printf("yx: %d, %d", yx[0], yx[1]);
 		if (yx[0] == -1 || yx[1] == -1)
 			return (0);
 		if (yx[0] >= 0 && yx[1] >= 0)
@@ -181,8 +204,16 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 				{
 					if (block[y][x] == filledchar)
 					{
+						printf("map_size: %zu, %d, %d\n", ft_strlen(map[0]), yx[0] + y, yx[1] + 1);
+						if (yx[0] + y >= ft_strlen(map[0]) || yx[1] + x >= ft_strlen(map[0]))
+						{
+							printf("Doenst exist!\n");
+							return (0);
+						}
+						printf("%c\n", map[yx[0] + y][yx[1] + x]);
 						if (map[yx[0] + y][yx[1] + x] == emptychar)
 						{
+							printf("Trying to insert to: %d, %d\n", yx[0] + y, yx[1] + x);
 							map[yx[0] + y][yx[1] + x] = c;
 							inserted++;
 						}
