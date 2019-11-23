@@ -15,17 +15,18 @@ Fail if:
 
 =======
 Main
-	part1
-		getnl
-	part2
-		getnl
-	?Validity?
-	pre_rec
-		makenewblock
-		recursive
-			actualinsert
-				insertomap:x
-				getfirstincertable
+*	part1 (read how many tetriminos in the file) returns (-1: too many line breaks)(-2: not 4x4)(x: == how_many tetriminos)
+**		getnl
+*	part2 (puts all the tetriminos in a 2d array) returns (char **) new 2d arr (willl not be called if part1 didnt function)
+**		getnl
+*	?Validity? (checks if all tetriminos are valid) returns (0: one of the checks didnt pass)(1: all checks passed)
+*	pre_rec	(?) return (?)
+**		makenewblock (makes a NxN map filled with emptychars) returns (char **) new 2d arr 
+**		recursive (?) returns (?)
+***			actualinsert
+****			insertomap (moves all blocks to the top left) returns (char **) new 2d arr of block
+****			getfirstincertable //TODO: start from 0,0 and check if its empty if is try to insert if not go next
+									(?) returns (int *) coords of first emptychar in 2d arr map
 				
 
 >>>>>>> cabe279f61a7e82795f65e7019a0f5218610d61b

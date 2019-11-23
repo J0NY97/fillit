@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/23 11:13:19 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/23 17:16:23 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 char	**makenewblock(char emptychar, int size);
 int		ft_2dstrchr(char **str, char c);
 int 	pre_rec(int how_many, char **block);
-int		recursive(char **block, char **map, int x, int y, int how_many);
+int		recursive(char **block, char **map, int x, int y, int how_many, int timeout);
 char	**strto2dstr(char *input);
 int		actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth);
 int		*getfirstinsertable(char **map, int start_x, char filled);
@@ -33,5 +33,6 @@ int		atleast2(char **input, int arr[4][2], char c2);
 int		correctchars(char *input, char c1, char c2);
 char	**part2(char *file, int how_many, char **str);
 int		part1(char *file);
+int		validity_check(char *str, char emptychar, char filledchar);
 
 #endif
