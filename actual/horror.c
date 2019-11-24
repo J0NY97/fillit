@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/23 17:06:19 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/24 12:18:54 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ int	recursive(char **block, char **map, int x, int y, int how_many, int timeout)
 	tmp2 = how_many;
 	tmp = y;
 	timeout++;
-	if (how_many == x || timeout == 30)
+	if (how_many == x || timeout == 50)
+	{
+		printf("Timeout: %d\n", timeout);
 		return (1);
+	}
 	if (ft_2dstrchr(map, 'A' + x) == 1)
 	{
 		x++;
@@ -100,5 +103,6 @@ int	recursive(char **block, char **map, int x, int y, int how_many, int timeout)
 		print_block(map);
 		return(recursive(block, map, x, y, how_many, timeout));
 	}
+	printf("Timeout: %d\n", timeout);
 	return (1);
 }

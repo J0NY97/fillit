@@ -173,7 +173,7 @@ int *getfirstinsertable(char **map, int start_x, char empty)
 
 int	actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth)
 {
-	printf("INside actualinsert\n");
+	printf("Inside actualinsert!\n");
 	int *yx;
 	int *realyx;
 	int y = 0;
@@ -182,7 +182,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	int inserted = 0;
 	int timeout = 0;
 	char c = 'A' + howmanieth;
-	int startx = howmanieth;
+	int startx = 0; //kan inte vara howmanieth, moste testa med 0,0 framot.
 
 	yx = malloc(2);
 	realyx = malloc(2);
@@ -191,7 +191,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	while (inserted != 4) //&& timeout < 5)
 	{
 		yx = getfirstinsertable(map, startx, emptychar);
-		printf("yx: %d, %d", yx[0], yx[1]);
+		printf("yx: %d, %d\n", yx[0], yx[1]);
 		if (yx[0] == -1 || yx[1] == -1)
 			return (0);
 		if (yx[0] >= 0 && yx[1] >= 0)
@@ -202,15 +202,16 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 					x = 0;
 				while (block[y][x])
 				{
-					if (block[y][x] == filledchar)
+					if (block[y][x] == filledchar) //dehar ar en del av problemet
 					{
-						printf("map_size: %zu, %d, %d\n", ft_strlen(map[0]), yx[0] + y, yx[1] + 1);
+						//printf("map_size: %zu, %d, %d\n", ft_strlen(map[0]), yx[0] + y, yx[1] + 1);
 						if (yx[0] + y >= ft_strlen(map[0]) || yx[1] + x >= ft_strlen(map[0]))
 						{
 							printf("Doenst exist!\n");
 							return (0);
 						}
-						printf("%c\n", map[yx[0] + y][yx[1] + x]);
+						printf("insert to: %d, %d\n", yx[0] + y, yx[1] + x);
+						//printf("%c\n", map[yx[0] + y][yx[1] + x]);
 						if (map[yx[0] + y][yx[1] + x] == emptychar)
 						{
 							printf("Trying to insert to: %d, %d\n", yx[0] + y, yx[1] + x);
@@ -232,7 +233,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 				inserted = 0;
 				print_block(map);
 				print_block(block);
-				map_char_delet(map, c);
+				map_char_delet(map, c); //recursion och actual insert deletar.
 				startx++;
 				y = 0;
 				x = 0;
