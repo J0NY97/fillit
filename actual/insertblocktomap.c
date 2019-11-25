@@ -149,28 +149,27 @@ int trytoinsert(char **map, char **block, int startx, char c)
 {
 	int starty;
 	int *map_size;
-	int x;
-	int y;
+	int yx[2];
 	int inserted;
 	
 	map_size = get_size(map); 
 	starty = startx / map_size[0];
 	startx = startx % map_size[1];
-	y = 0;
+	yx[0] = 0;
 	inserted = 0;
-	while (block[y])
+	while (block[yx[0]])
 	{
-		x = 0;
-		while (block[y][x] && starty + y < map_size[0] && startx + x < map_size[1])
+		yx[1] = 0;
+		while (block[yx[0]][yx[1]] && starty + yx[0] < map_size[0] && startx + yx[1] < map_size[1])
 		{
-			if (block[y][x] == '#' && map[starty + y][startx + x] == '.')
+			if (block[yx[0]][yx[1]] == '#' && map[starty + yx[0]][startx + yx[1]] == '.')
 			{
-				map[starty + y][startx + x] = c;
+				map[starty + yx[0]][startx + yx[1]] = c;
 				inserted++;
 			}
-			x++;
+			yx[1]++;
 		}
-		y++;
+		yx[0]++;
 	}
 	return (inserted == 4);
 }
