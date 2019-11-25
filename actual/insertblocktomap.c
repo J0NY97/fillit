@@ -34,59 +34,64 @@ int	*get_size(char **block)
 	return (arr);
 }
 
-int *getRealXandY(char **block)
+int getrealx(char **block)
 {
-    int x;
-    int y;
-    int realX;
-    int realY;
-    int isRealFilled;
-	int *arr;
+	int y;
+	int x;
+	int realx;
 
-	arr = malloc(2);
-    isRealFilled = 0;
-    realX = -1;
-    realY = -1;
-    y = 0;
     x = 0;
-    //get Y
-    while (y < 4 && realY < 0)
-    {
-        x = 0;
-        while (x < 4 && realY < 0)
-        {
-            if (block[y][x] == '#')
-            {
-                realY = y;
-                break ;
-            }
-            x++;
-        }
-        y++;
-    }
-    //get X
-    y = 0;
-    x = 0;
-    while (x < 4 && realX < 0)
+	realx = -1;
+    while (x < 4 && realx < 0)
     {
         y = 0;
-        while (y < 4 && realX < 0)
+        while (y < 4 && realx < 0)
         {
             if (block[y][x] == '#')
             {
-                realX = x;
+                realx = x;
                 break ;
             }
             y++;
         }
         x++;
     }
-    if (block[realY][realX] == '#')
-        isRealFilled = 1;
-    arr[0] = realY;
-    arr[1] = realX;
-    arr[2] = isRealFilled;
-    return (arr);
+    return (realx);
+}
+
+int getrealy(char **block)
+{
+    int x;
+    int y;
+    int realy;
+
+    realy = -1;
+    y = 0;
+    while (y < 4 && realy < 0)
+    {
+        x = 0;
+        while (x < 4 && realy < 0)
+        {
+            if (block[y][x] == '#')
+            {
+                realy = y;
+                break ;
+            }
+            x++;
+        }
+        y++;
+    }
+	return (realy);
+}
+
+int *getRealXandY(char **block)
+{
+	int *realyx;
+
+	realyx = malloc(2);
+	realyx[0] = getrealy(block);
+	realyx[1] = getrealx(block);
+	return (realyx);
 }
 
 char	**makenewblock(char emptychar, int size)
@@ -113,7 +118,7 @@ char	**makenewblock(char emptychar, int size)
 	return (newblock);
 }
 
-char	**inserttomap(char **block, int realx, int realy)
+char	**topleftblock(char **block, int realx, int realy)
 {
 	char **newblock;
 	int y;
@@ -140,39 +145,6 @@ char	**inserttomap(char **block, int realx, int realy)
 	return (newblock);
 }
 
-int *getfirstinsertable(char **map, int start_x, char empty)
-{
-	int map_size;
-	int *yx;
-	int end = 0;
-	int start_y;
-
-	yx = malloc(2);
-	yx[0] = -1;
-	yx[1] = -1;
-	map_size = ft_strlen(map[0]);
-	start_y = start_x / map_size;
-	start_x = start_x % map_size;
-	while (start_y < map_size)
-	{
-		if (end == 1)
-			start_x = 0;
-		while (start_x < map_size)
-		{
-			if (map[start_y][start_x] == empty)
-			{
-				yx[0] = start_y;
-				yx[1] = start_x;
-				return (yx);
-			}
-			start_x++;
-		}
-		end = 1;
-		start_y++;
-	}
-	return (yx);
-}
-
 int trytoinsert(char **map, char **block, char emptychar, char filledchar,  int startx, char c)
 {
 	int starty;
@@ -186,7 +158,6 @@ int trytoinsert(char **map, char **block, char emptychar, char filledchar,  int 
 	startx = startx % map_size[1];
 	y = 0;
 	inserted = 0;
-	printf("starty: %d, startx: %d, mapY: %d, mapX: %d\n", starty, startx, map_size[0], map_size[1]);
 	while (block[y])
 	{
 		x = 0;
@@ -195,27 +166,18 @@ int trytoinsert(char **map, char **block, char emptychar, char filledchar,  int 
 			if (block[y][x] == filledchar)
 			{
 				if (starty + y >= map_size[0] || startx + x >= map_size[1])
-				{
-					printf("Doenst exist!: %d, %d\n", starty + y, startx + x);
 					return (0);
-				}
-				printf("insert to: %d, %d\n", starty + y, startx + x);
 				if (map[starty + y][startx + x] == emptychar)
 				{
-					printf("Trying to insert to: %d, %d\n", starty + y, startx + x);
 					map[starty + y][startx + x] = c;
 					inserted++;
-					printf("Inserted: %d\n", inserted);
 				}
 			}
 			x++;
 		}
 		y++;
 	}
-	printf("inserted: %d, char: %c\n", inserted, c);
-	if (inserted == 4)
-		return (1);
-	return (0);
+	return (inserted == 4);
 }
 
 int	actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth)
@@ -228,7 +190,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	map_size = get_size(map);
 	startx = 0;
 	realyx = getRealXandY(block);
-	block = inserttomap(block, realyx[1], realyx[0]);
+	block = topleftblock(block, realyx[1], realyx[0]);
 	print_block(block);
 	while (trytoinsert(map, block, emptychar, filledchar, startx, c) == 0)
 	{
