@@ -145,7 +145,7 @@ char	**topleftblock(char **block, int realx, int realy)
 	return (newblock);
 }
 
-int trytoinsert(char **map, char **block, char emptychar, char filledchar,  int startx, char c)
+int trytoinsert(char **map, char **block, int startx, char c)
 {
 	int starty;
 	int *map_size;
@@ -161,13 +161,11 @@ int trytoinsert(char **map, char **block, char emptychar, char filledchar,  int 
 	while (block[y])
 	{
 		x = 0;
-		while (block[y][x])
+		while (block[y][x] && starty + y < map_size[0] && startx + x < map_size[1])
 		{
-			if (block[y][x] == filledchar)
+			if (block[y][x] == '#')
 			{
-				if (starty + y >= map_size[0] || startx + x >= map_size[1])
-					return (0);
-				if (map[starty + y][startx + x] == emptychar)
+				if (map[starty + y][startx + x] == '.')
 				{
 					map[starty + y][startx + x] = c;
 					inserted++;
@@ -192,7 +190,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	realyx = getRealXandY(block);
 	block = topleftblock(block, realyx[1], realyx[0]);
 	print_block(block);
-	while (trytoinsert(map, block, emptychar, filledchar, startx, c) == 0)
+	while (trytoinsert(map, block, startx, c) == 0)
 	{
 		printf("startx: %d\n", startx);
 		map_char_delet(map, c);
