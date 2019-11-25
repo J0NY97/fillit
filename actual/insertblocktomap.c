@@ -163,13 +163,10 @@ int trytoinsert(char **map, char **block, int startx, char c)
 		x = 0;
 		while (block[y][x] && starty + y < map_size[0] && startx + x < map_size[1])
 		{
-			if (block[y][x] == '#')
+			if (block[y][x] == '#' && map[starty + y][startx + x] == '.')
 			{
-				if (map[starty + y][startx + x] == '.')
-				{
-					map[starty + y][startx + x] = c;
-					inserted++;
-				}
+				map[starty + y][startx + x] = c;
+				inserted++;
 			}
 			x++;
 		}
