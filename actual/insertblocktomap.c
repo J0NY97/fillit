@@ -183,14 +183,18 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	int timeout = 0;
 	char c = 'A' + howmanieth;
 	int startx = 0; //kan inte vara howmanieth, moste testa med 0,0 framot.
+					// d] beh;ver vi int getfirstinsertable, s] de kommer vara fittit l[ngsamt
 
 	yx = malloc(2);
 	realyx = malloc(2);
 	realyx = getRealXandY(realyx, block);
+	printf("IsFilled: %d\n", realyx[2]);
 	block = inserttomap(block, realyx[1], realyx[0]);
 	while (inserted != 4) //&& timeout < 5)
 	{
 		yx = getfirstinsertable(map, startx, emptychar);
+		if (realyx[2] != 1) // if block isnt filled at 0,0 start inserting from firstinsertable x -1;
+			yx[1] -= 1;
 		printf("yx: %d, %d\n", yx[0], yx[1]);
 		if (yx[0] == -1 || yx[1] == -1)
 			return (0);
