@@ -236,7 +236,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 				inserted = 0;
 				print_block(map);
 				print_block(block);
-				map_char_delet(map, c); //recursion och actual insert deletar.
+				map_char_delet(map, 'A' + howmanieth); //recursion och actual insert deletar.
 										// denna deletar allt som den har f;s;kt s'tta in till map men int lyckas s'tta 4
 				startx++;
 				y = 0;
