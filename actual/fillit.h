@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/25 14:12:17 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/25 14:24:40 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		correctchars(char *input, char c1, char c2);
 char	**part2(char *file, int how_many, char **str);
 int		part1(char *file);
 int		validity_check(char *str, char emptychar, char filledchar);
+int		trytoinsert(char **map, char **block, int startx, char c);
 
 #endif
