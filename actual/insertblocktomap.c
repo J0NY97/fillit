@@ -181,6 +181,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	int end = 0;
 	int inserted = 0;
 	int timeout = 0;
+	char c = 'A' + howmanieth;
 	int startx = 0; //kan inte vara howmanieth, moste testa med 0,0 framot.
 					// d] beh;ver vi int getfirstinsertable, s] de kommer vara fittit l[ngsamt
 
@@ -200,11 +201,11 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 			return (0);
 		if (yx[0] >= 0 && yx[1] >= 0)
 		{
-			while (block[y] && map[yx[0] + y])
+			while (block[y])
 			{
 				if (end == 1)
 					x = 0;
-				while (block[y][x] && map[yx[1] + x])
+				while (block[y][x])
 				{
 					if (block[y][x] == filledchar) //dehar ar en del av problemet
 					{
@@ -217,7 +218,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 						if (map[yx[0] + y][yx[1] + x] == emptychar)
 						{
 							printf("Trying to insert to: %d, %d\n", yx[0] + y, yx[1] + x);
-							map[yx[0] + y][yx[1] + x] = 'A' + howmanieth;
+							map[yx[0] + y][yx[1] + x] = c;
 							inserted++;
 							printf("Inserted: %d\n", inserted);
 						}
@@ -236,7 +237,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 				inserted = 0;
 				print_block(map);
 				print_block(block);
-				map_char_delet(map, 'A' + howmanieth); //recursion och actual insert deletar.
+				map_char_delet(map, c); //recursion och actual insert deletar.
 										// denna deletar allt som den har f;s;kt s'tta in till map men int lyckas s'tta 4
 				startx++;
 				y = 0;
