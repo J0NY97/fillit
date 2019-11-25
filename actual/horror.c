@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/24 12:18:54 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/25 14:52:07 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int		pre_rec(int how_many, char **block)
 
 	x = 0;
 	y = 1;
-	how_many = 4;
-	size = 4;
+	size = 5; // fixa senar
 	timeout = 0;
 	map = makenewblock('.', size);
 	printf("pre_rec\n");
