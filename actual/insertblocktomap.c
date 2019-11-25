@@ -184,7 +184,6 @@ int trytoinsert(char **map, char **block, char emptychar, char filledchar,  int 
 	map_size = get_size(map); 
 	starty = startx / map_size[0];
 	startx = startx % map_size[1];
-	x = 0;
 	y = 0;
 	inserted = 0;
 	printf("starty: %d, startx: %d, mapY: %d, mapX: %d\n", starty, startx, map_size[0], map_size[1]);
@@ -243,84 +242,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	}
 	return (1);
 }
-/*
-int	oldactualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth)
-{
-	printf("Inside actualinsert!\n");
-	int *yx;
-	int *realyx;
-	int y;
-	int x;
-	int end;
-	int inserted;
-	char c = 'A' + howmanieth;
-	int startx = 0;
 
-	y = 0;
-	x = 0;
-	end = 0;
-	inserted = 0;
-	realyx = getRealXandY(block);
-	printf("IsFilled: %d\n", realyx[2]);
-	block = inserttomap(block, realyx[1], realyx[0]);
-	while (inserted != 4)
-	{
-		printf("Startx: %d\n", startx);
-		yx = getfirstinsertable(map, startx, emptychar);
-		if (realyx[2] != 1)
-			yx[1] -= 1;
-		printf("yx: %d, %d\n", yx[0], yx[1]);
-		if (yx[0] == -1 || yx[1] == -1)
-			return (0);
-		if (yx[0] >= 0 && yx[1] >= 0)
-		{
-			while (block[y])
-			{
-				if (end == 1)
-					x = 0;
-				while (block[y][x])
-				{
-					if (block[y][x] == filledchar)
-					{
-						if (yx[0] + y >= ft_strlen(map[0]) || yx[1] + x >= ft_strlen(map[0]))
-						{
-							printf("Doenst exist!: %d, %d\n", yx[0] + y, yx[1] + x);
-							return (0);
-						}
-						printf("insert to: %d, %d\n", yx[0] + y, yx[1] + x);
-						if (map[yx[0] + y][yx[1] + x] == emptychar)
-						{
-							printf("Trying to insert to: %d, %d\n", yx[0] + y, yx[1] + x);
-							map[yx[0] + y][yx[1] + x] = c;
-							inserted++;
-							printf("Inserted: %d\n", inserted);
-						}
-					}
-					x++;
-				}
-				end = 1;
-				y++;
-			}
-			if (inserted == 4)
-			{
-				//trytoinsert(map, block, startx);
-				return (1);
-			}
-			else
-			{
-				inserted = 0;
-				print_block(map);
-				print_block(block);
-				map_char_delet(map, c);
-				startx++;
-				y = 0;
-				x = 0;
-			}
-		}
-	}
-	return (0);
-}
-*/
 char **strto2dstr(char *input)
 {
 	char **str;
