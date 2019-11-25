@@ -181,7 +181,6 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	int end = 0;
 	int inserted = 0;
 	int timeout = 0;
-	char c = 'A' + howmanieth;
 	int startx = 0; //kan inte vara howmanieth, moste testa med 0,0 framot.
 					// d] beh;ver vi int getfirstinsertable, s] de kommer vara fittit l[ngsamt
 
@@ -192,6 +191,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	block = inserttomap(block, realyx[1], realyx[0]);
 	while (inserted != 4) //&& timeout < 5)
 	{
+		printf("Startx: %d\n", startx);
 		yx = getfirstinsertable(map, startx, emptychar);
 		if (realyx[2] != 1) // if block isnt filled at 0,0 start inserting from firstinsertable x -1;
 			yx[1] -= 1;
@@ -200,27 +200,26 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 			return (0);
 		if (yx[0] >= 0 && yx[1] >= 0)
 		{
-			while (block[y])
+			while (block[y] && map[yx[0] + y])
 			{
 				if (end == 1)
 					x = 0;
-				while (block[y][x])
+				while (block[y][x] && map[yx[1] + x])
 				{
 					if (block[y][x] == filledchar) //dehar ar en del av problemet
 					{
-						//printf("map_size: %zu, %d, %d\n", ft_strlen(map[0]), yx[0] + y, yx[1] + 1);
 						if (yx[0] + y >= ft_strlen(map[0]) || yx[1] + x >= ft_strlen(map[0]))
 						{
-							printf("Doenst exist!\n");
+							printf("Doenst exist!: %d, %d\n", yx[0] + y, yx[1] + x);
 							return (0);
 						}
 						printf("insert to: %d, %d\n", yx[0] + y, yx[1] + x);
-						//printf("%c\n", map[yx[0] + y][yx[1] + x]);
 						if (map[yx[0] + y][yx[1] + x] == emptychar)
 						{
 							printf("Trying to insert to: %d, %d\n", yx[0] + y, yx[1] + x);
-							map[yx[0] + y][yx[1] + x] = c;
+							map[yx[0] + y][yx[1] + x] = 'A' + howmanieth;
 							inserted++;
+							printf("Inserted: %d\n", inserted);
 						}
 					}
 					x++;
@@ -238,6 +237,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 				print_block(map);
 				print_block(block);
 				map_char_delet(map, c); //recursion och actual insert deletar.
+										// denna deletar allt som den har f;s;kt s'tta in till map men int lyckas s'tta 4
 				startx++;
 				y = 0;
 				x = 0;
