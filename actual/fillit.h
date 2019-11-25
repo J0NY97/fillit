@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/23 17:16:23 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/25 12:46:44 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**strto2dstr(char *input);
 int		actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth);
 int		*getfirstinsertable(char **map, int start_x, char filled);
 char	**inserttomap(char **block, int realx, int realy);
-int		*getRealXandY(int *arr, char **block);
+int		*getRealXandY(char **block);
 void	print_block(char **block);
 void	 map_char_delet(char **map, char c);
 int		*get_size(char **block);

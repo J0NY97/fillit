@@ -34,14 +34,16 @@ int	*get_size(char **block)
 	return (arr);
 }
 
-int *getRealXandY(int *arr, char **block)
+int *getRealXandY(char **block)
 {
     int x;
     int y;
     int realX;
     int realY;
     int isRealFilled;
+	int *arr;
 
+	arr = malloc(2);
     isRealFilled = 0;
     realX = -1;
     realY = -1;
@@ -151,7 +153,7 @@ int *getfirstinsertable(char **map, int start_x, char empty)
 	map_size = ft_strlen(map[0]);
 	start_y = start_x / map_size;
 	start_x = start_x % map_size;
-	while (start_y <= map_size)
+	while (start_y < map_size)
 	{
 		if (end == 1)
 			start_x = 0;
@@ -171,30 +173,101 @@ int *getfirstinsertable(char **map, int start_x, char empty)
 	return (yx);
 }
 
+int trytoinsert(char **map, char **block, char emptychar, char filledchar,  int startx, char c)
+{
+	int starty;
+	int *map_size;
+	int x;
+	int y;
+	int inserted;
+	
+	map_size = get_size(map); 
+	starty = startx / map_size[0];
+	startx = startx % map_size[1];
+	x = 0;
+	y = 0;
+	inserted = 0;
+	printf("starty: %d, startx: %d, mapY: %d, mapX: %d\n", starty, startx, map_size[0], map_size[1]);
+	while (block[y])
+	{
+		x = 0;
+		while (block[y][x])
+		{
+			if (block[y][x] == filledchar)
+			{
+				if (starty + y >= map_size[0] || startx + x >= map_size[1])
+				{
+					printf("Doenst exist!: %d, %d\n", starty + y, startx + x);
+					return (0);
+				}
+				printf("insert to: %d, %d\n", starty + y, startx + x);
+				if (map[starty + y][startx + x] == emptychar)
+				{
+					printf("Trying to insert to: %d, %d\n", starty + y, startx + x);
+					map[starty + y][startx + x] = c;
+					inserted++;
+					printf("Inserted: %d\n", inserted);
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+	printf("inserted: %d, char: %c\n", inserted, c);
+	if (inserted == 4)
+		return (1);
+	return (0);
+}
+
 int	actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth)
+{
+	int startx;
+	int *realyx;
+	char c = 'A' + howmanieth;
+	int *map_size;
+
+	map_size = get_size(map);
+	startx = 0;
+	realyx = getRealXandY(block);
+	block = inserttomap(block, realyx[1], realyx[0]);
+	print_block(block);
+	while (trytoinsert(map, block, emptychar, filledchar, startx, c) == 0)
+	{
+		printf("startx: %d\n", startx);
+		map_char_delet(map, c);
+		print_block(map);
+		print_block(block);
+		startx++;
+		if (startx >= (map_size[0] * map_size[1]))
+			return (0);
+	}
+	return (1);
+}
+/*
+int	oldactualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth)
 {
 	printf("Inside actualinsert!\n");
 	int *yx;
 	int *realyx;
-	int y = 0;
-	int x = 0;
-	int end = 0;
-	int inserted = 0;
-	int timeout = 0;
+	int y;
+	int x;
+	int end;
+	int inserted;
 	char c = 'A' + howmanieth;
-	int startx = 0; //kan inte vara howmanieth, moste testa med 0,0 framot.
-					// d] beh;ver vi int getfirstinsertable, s] de kommer vara fittit l[ngsamt
+	int startx = 0;
 
-	yx = malloc(2);
-	realyx = malloc(2);
-	realyx = getRealXandY(realyx, block);
+	y = 0;
+	x = 0;
+	end = 0;
+	inserted = 0;
+	realyx = getRealXandY(block);
 	printf("IsFilled: %d\n", realyx[2]);
 	block = inserttomap(block, realyx[1], realyx[0]);
-	while (inserted != 4) //&& timeout < 5)
+	while (inserted != 4)
 	{
 		printf("Startx: %d\n", startx);
 		yx = getfirstinsertable(map, startx, emptychar);
-		if (realyx[2] != 1) // if block isnt filled at 0,0 start inserting from firstinsertable x -1;
+		if (realyx[2] != 1)
 			yx[1] -= 1;
 		printf("yx: %d, %d\n", yx[0], yx[1]);
 		if (yx[0] == -1 || yx[1] == -1)
@@ -207,7 +280,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 					x = 0;
 				while (block[y][x])
 				{
-					if (block[y][x] == filledchar) //dehar ar en del av problemet
+					if (block[y][x] == filledchar)
 					{
 						if (yx[0] + y >= ft_strlen(map[0]) || yx[1] + x >= ft_strlen(map[0]))
 						{
@@ -230,6 +303,7 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 			}
 			if (inserted == 4)
 			{
+				//trytoinsert(map, block, startx);
 				return (1);
 			}
 			else
@@ -237,19 +311,16 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 				inserted = 0;
 				print_block(map);
 				print_block(block);
-				map_char_delet(map, c); //recursion och actual insert deletar.
-										// denna deletar allt som den har f;s;kt s'tta in till map men int lyckas s'tta 4
+				map_char_delet(map, c);
 				startx++;
 				y = 0;
 				x = 0;
-			//	timeout++;
 			}
-			//return (0);
 		}
 	}
 	return (0);
 }
-
+*/
 char **strto2dstr(char *input)
 {
 	char **str;
