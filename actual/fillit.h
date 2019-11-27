@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/27 11:49:50 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/27 12:31:32 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 # include <stdio.h>
 
 // Niklas
-int		new_thing(char **block, char **map, int i, char letter);
-int 	pre_rec(char **block, char **map, int how_many);
-//int		recursive(char **block, char **map, int x, int y, int how_many, int timeout);
+int		new_thing(char **block, char **map, int i, char letter, int how_many);
+int 	pre_rec(char **block, int how_many);
 
 // Jony
 int		actualinsert(char **map, char **block, int x, int y, char c);
@@ -41,7 +40,6 @@ int		atleast2(char **input, int arr[4][2], char c2);
 int		*get_size(char **block);
 void	 map_char_delet(char **map, char c);
 char	**strto2dstr(char *input);
-int		ft_2dstrchr(char **str, char c);
 char	**makenewblock(char emptychar, int size);
 void	print_block(char **block);
 

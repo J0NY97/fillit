@@ -239,11 +239,11 @@ int	actualinsert(char **map, char **block, int x, int y, char c)
 
 	realyx = getRealXandY(block);
 	block = topleftblock(block, realyx[1], realyx[0]);
-	print_block(block);
+	//print_block(block);
 	if (trytoinsert(map, block, x, y, c) == 0)
 	{
 		map_char_delet(map, c);
-		print_block(map);
+		//print_block(map);
 		return (0);
 	}
 	return (1);

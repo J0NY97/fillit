@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 13:38:52 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/23 15:05:45 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/27 13:17:29 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int atleast2(char **input, int arr[4][2], char c2)
 			connected++;
 		i++;
 	}
-	if (connected >= 6)
+	if (connected >= 6 && connected <= 8)
 		return (1);
 	return (0);
 }
@@ -91,12 +91,12 @@ int	validity_check(char *str, char emptychar, char filledchar)
 {
 	if (!correctchars(str, emptychar, filledchar))
 	{
-		printf("Not correct chars in: %s\n", str);
+//		printf("Not correct chars in: %s\n", str);
 		return (0);
 	}
 	else if (!istetriminos(str, filledchar))
 	{
-		printf("Not correct tetriminos in: \n%s\n", str);
+//		printf("Not correct tetriminos in: \n%s\n", str);
 		return (0);
 	}
 	return (1);

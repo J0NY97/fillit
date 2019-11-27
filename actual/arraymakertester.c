@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:50:07 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/23 10:42:17 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/27 12:46:32 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		part1(char *file)
 	x = 0;
 	how_many = 0;
 	fd = open(file, O_RDONLY);
-	printf("%d\n", fd);
 	while (get_next_line(fd, &line) == 1)
 	{
 		if (x == 4  && ((ft_strcmp(line, "\n") != 0)))
