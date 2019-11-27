@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 12:00:25 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/06 14:55:42 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/27 16:14:42 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strcpy(str, s1);
 	else
 		ft_strcpy(str, s2);
-	if(s1 && s2)
+	if (s1 && s2)
 		ft_strcat(str, s2);
 	return (str);
 }
