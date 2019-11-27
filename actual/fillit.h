@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/27 15:33:36 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/27 16:18:42 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 
 // Niklas
-int		new_thing(char **block, char **map, int i, char letter, int how_many);
+int		new_thing(char **block, char **map, int i, int how_many);
 int 	pre_rec(char **block, int how_many);
 
 // Jony
