@@ -151,6 +151,7 @@ char	**topleftblock(char **block, int realx, int realy)
 }
 
 // 2nd while > 80 chars
+/*
 int trytoinsert(char **map, char **block, int startx, char c)
 {
 	int starty;
@@ -204,8 +205,49 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 			return (0);
 	}
 	return (1);
+}*/
+
+int trytoinsert(char **map, char **block, int x, int y, char c)
+{
+	int *map_size;
+	int yx[2];
+	int inserted;
+	
+	map_size = get_size(map); 
+	yx[0] = 0;
+	inserted = 0;
+	while (block[yx[0]])
+	{
+		yx[1] = 0;
+		while (block[yx[0]][yx[1]] && y + yx[0] < map_size[0] && x + yx[1] < map_size[1])
+		{
+			if (block[yx[0]][yx[1]] == '#' && map[y + yx[0]][x + yx[1]] == '.')
+			{
+				map[y + yx[0]][x + yx[1]] = c;
+				inserted++;
+			}
+			yx[1]++;
+		}
+		yx[0]++;
+	}
+	return (inserted == 4);
 }
 
+int	actualinsert(char **map, char **block, int x, int y, char c)
+{
+	int *realyx;
+
+	realyx = getRealXandY(block);
+	block = topleftblock(block, realyx[1], realyx[0]);
+	print_block(block);
+	if (trytoinsert(map, block, x, y, c) == 0)
+	{
+		map_char_delet(map, c);
+		print_block(map);
+		return (0);
+	}
+	return (1);
+}
 
 // move this function somewhere else cause its not used int this file
 char **strto2dstr(char *input)
