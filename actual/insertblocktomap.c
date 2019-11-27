@@ -3,6 +3,7 @@
 #include "./libft/libft.h"
 #include "./fillit.h"
 
+// remove function before final commit
 void	print_block(char **block)
 {
 	int i = 0;
@@ -14,6 +15,7 @@ void	print_block(char **block)
 	}
 }
 
+// move function to other file, because its used in more files than this
 int	*get_size(char **block)
 {
 	int *arr;
@@ -84,6 +86,7 @@ int getrealy(char **block)
 	return (realy);
 }
 
+// rename to getrealyandx
 int *getRealXandY(char **block)
 {
 	int *realyx;
@@ -94,6 +97,7 @@ int *getRealXandY(char **block)
 	return (realyx);
 }
 
+// move function to other file because its used in more files than this
 char	**makenewblock(char emptychar, int size)
 {
 	char **newblock;
@@ -118,6 +122,7 @@ char	**makenewblock(char emptychar, int size)
 	return (newblock);
 }
 
+// instead of realx, realy do realy, realx
 char	**topleftblock(char **block, int realx, int realy)
 {
 	char **newblock;
@@ -145,36 +150,37 @@ char	**topleftblock(char **block, int realx, int realy)
 	return (newblock);
 }
 
+// 2nd while > 80 chars
 int trytoinsert(char **map, char **block, int startx, char c)
 {
 	int starty;
 	int *map_size;
-	int x;
-	int y;
+	int yx[2];
 	int inserted;
 	
 	map_size = get_size(map); 
 	starty = startx / map_size[0];
 	startx = startx % map_size[1];
-	y = 0;
+	yx[0] = 0;
 	inserted = 0;
-	while (block[y])
+	while (block[yx[0]])
 	{
-		x = 0;
-		while (block[y][x] && starty + y < map_size[0] && startx + x < map_size[1])
+		yx[1] = 0;
+		while (block[yx[0]][yx[1]] && starty + yx[0] < map_size[0] && startx + yx[1] < map_size[1])
 		{
-			if (block[y][x] == '#' && map[starty + y][startx + x] == '.')
+			if (block[yx[0]][yx[1]] == '#' && map[starty + yx[0]][startx + yx[1]] == '.')
 			{
-				map[starty + y][startx + x] = c;
+				map[starty + yx[0]][startx + yx[1]] = c;
 				inserted++;
 			}
-			x++;
+			yx[1]++;
 		}
-		y++;
+		yx[0]++;
 	}
 	return (inserted == 4);
 }
 
+// Remove filled char and empty char from arguments
 int	actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth)
 {
 	int startx;
@@ -200,6 +206,8 @@ int	actualinsert(char **map, char **block, char emptychar, char filledchar, int 
 	return (1);
 }
 
+
+// move this function somewhere else cause its not used int this file
 char **strto2dstr(char *input)
 {
 	char **str;
