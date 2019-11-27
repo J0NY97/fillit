@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/27 13:19:34 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:53:10 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int new_thing(char **block, char **map, int i, char letter, int how_many)
 		x = 0;
 		while(map[y][x])
 		{
-			if(actualinsert(map, strto2dstr(block[i]), y, x, letter + i) == 1)
+			if(actualinsert(map, strto2dstr(block[i]), x, y, letter + i) == 1)
 			{
 				if(new_thing(block, map, i + 1, letter, how_many) == 1)
 					return (1);
