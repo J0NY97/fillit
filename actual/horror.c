@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/25 14:52:07 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:04:17 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int		pre_rec(int how_many, char **block)
 	int timeout;
 
 	x = 0;
-	y = 1;
-	size = 5; // fixa senar
+	y = 0;
+	size = 4; // fixa senar
 	timeout = 0;
 	map = makenewblock('.', size);
 	printf("pre_rec\n");
@@ -57,11 +57,12 @@ int	recursive(char **block, char **map, int x, int y, int how_many, int timeout)
 {
 	int tmp;
 	int tmp2;
+	//int *test;
 	
 	tmp2 = how_many;
-	tmp = y;
+	//tmp = y;
 	timeout++;
-	if (how_many == x || timeout == 50)
+	if (how_many == x || timeout == 20)
 	{
 		printf("Timeout: %d\n", timeout);
 		return (1);
@@ -69,6 +70,7 @@ int	recursive(char **block, char **map, int x, int y, int how_many, int timeout)
 	if (ft_2dstrchr(map, 'A' + x) == 1)
 	{
 		x++;
+		printf("Time: %d\n", timeout);
 		return(recursive(block, map, x, y, how_many, timeout));
 	}
 	if((actualinsert(map, strto2dstr(block[x]), '.', '#', x) == 1))
@@ -80,26 +82,30 @@ int	recursive(char **block, char **map, int x, int y, int how_many, int timeout)
 		printf("A===========================A\n");
 		if (how_many == x)
 			x = 0;
+		//y = 0;
+		printf("Time: %d\n", timeout);
 		return(recursive(block, map, x, y, how_many, timeout));
 	}
 	else
 	{
-		while (how_many != x)
-		{
-			map_char_delet(map, 'A' + how_many);
-			how_many--;
-		}
+		y++;
+		tmp = y;
+		//while (how_many != x)
+		//{
+		map_char_delet(map, 'A' + (1 + x));
+		//	how_many--;
+		//}
 		while (y >= 0)
 		{
 			map_char_delet(map, 'A' + (x - y));
 			y--;
 		}
-		//tmp++;
 		y = tmp;
 		how_many = tmp2;
 		printf("what is x: %d\n", x);
 		printf("what is y: %d\n", y);
 		print_block(map);
+		printf("Time: %d\n", timeout);
 		return(recursive(block, map, x, y, how_many, timeout));
 	}
 	printf("Timeout: %d\n", timeout);
