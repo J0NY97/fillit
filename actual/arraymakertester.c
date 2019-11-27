@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:50:07 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/27 12:46:32 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:36:40 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,22 @@ int		part1(char *file)
 	fd = open(file, O_RDONLY);
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (x == 4  && ((ft_strcmp(line, "\n") != 0)))
-			return (-1);
-		if (ft_strcmp(line, "\n") > 0) //line has shit
-		{
-			if (ft_strlen(line) != 4)
-				return (-2);
-			x++;
-		}
-		if (x == 4 && ((ft_strcmp(line, "\n") == 0) || ft_strchr(line, '\0'))) //if x is 4 and is empty line
+		if (ft_strcmp(line, "\n") == -10)
 		{
 			x = 0;
 			how_many++;
 		}
+		else
+		{
+			if ((ft_strlen(line) != 4) || x > 4)
+				return (-1);
+			x++;
+		}
 	}
+	if ((how_many == 1 && x < 4) || x == 0 || ft_strcmp(line, "\n") == -10)
+		return (-1);
+	if (x == 4)
+		how_many++;
 	close(fd);
 	return (how_many);
 }
