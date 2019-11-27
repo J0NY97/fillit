@@ -6,7 +6,7 @@
 #    By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 14:25:24 by jsalmi            #+#    #+#              #
-#    Updated: 2019/11/27 13:14:55 by nneronin         ###   ########.fr        #
+#    Updated: 2019/11/27 15:28:51 by jsalmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRCS = ./insertblocktomap.c\
 	   ./arraymakertester.c\
 	   ./get_next_line.c\
 	   ./validitychecks.c\
-	   ./char_delet.c
+	   ./char_delet.c\
+	   ./help.c\
+	   ./getxandy.c
 OBJS = ./*.o
 INCLUDES = ./libft/libft.a
 FLAGS = -Wall -Wextra -Werror
