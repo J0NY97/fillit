@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/25 15:47:38 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/27 11:49:50 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 # include <stdio.h>
 
 // Niklas
-int 	pre_rec(int how_many, char **block);
-int		recursive(char **block, char **map, int x, int y, int how_many, int timeout);
+int		new_thing(char **block, char **map, int i, char letter);
+int 	pre_rec(char **block, char **map, int how_many);
+//int		recursive(char **block, char **map, int x, int y, int how_many, int timeout);
 
 // Jony
-int		actualinsert(char **map, char **block, char emptychar, char filledchar, int howmanieth);
+int		actualinsert(char **map, char **block, int x, int y, char c);
 int		*getRealXandY(char **block);
 char	**topleftblock(char **block, int realx, int realy);
-int		trytoinsert(char **map, char **block, int startx, char c);
+int		trytoinsert(char **map, char **block, int x, int y, char c);
 
 // Arraymaker
 int		part1(char *file);

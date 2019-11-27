@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/27 11:44:35 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/27 11:50:46 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int pre_rec(char **block, char **map, int how_many);
 }
 
 
-int new_thing(char **black, char **map, int i, char letter)
+int new_thing(char **block, char **map, int i, char letter)
 {
 	int y;
 	int x;
@@ -61,10 +61,10 @@ int new_thing(char **black, char **map, int i, char letter)
 		x = 0;
 		while(map[y][x])
 		{
-			if(actualinsert2(map, str2todstr(block[i]), y, x, letter) == 1);
+			if(actualinsert(map, str2todstr(block[i]), y, x, letter) == 1)
 			{
 				i++;
-				if(new_thing(block, map, i, letter) == 1);
+				if(new_thing(block, map, i, letter) == 1)
 					return (1);
 				else
 					map_char_delet(map, 'A' + i);
