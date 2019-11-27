@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 13:38:52 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/27 14:56:43 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:05:14 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ int	istetriminos(char *input, char c2)
 		}
 		y++;
 	}
-	if (atleast2(str, coords, c2))
-		return (1);
+	if (filledfound == 4)
+		if (atleast2(str, coords, c2))
+			return (1);
 	return (0);
 }
 
