@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/28 10:20:32 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:02:02 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,17 @@ int	pre_rec(char **block, int how_many)
 
 int	recursion(char **block, char **map, int i, int how_many)
 {
-	int y;
-	int x;
+	int yx[2];
 
-	y = 0;
+	yx[0] = 0;
 	if (i == how_many)
 		return (1);
-	while (map[y])
+	while (map[yx[0]])
 	{
-		x = 0;
-		while (map[y][x])
+		yx[1] = 0;
+		while (map[yx[0]][yx[1]])
 		{
-			if (actualinsert(map, strto2dstr(block[i]), x, y, 'A' + i) == 1)
+			if (actualinsert(map, strto2dstr(block[i]), yx, 'A' + i) == 1)
 			{
 				if (recursion(block, map, i + 1, how_many) == 1)
 					return (1);
@@ -55,9 +54,9 @@ int	recursion(char **block, char **map, int i, int how_many)
 					map_char_delet(map, 'A' + i + 1);
 			}
 			map_char_delet(map, 'A' + i);
-			x++;
+			yx[1]++;
 		}
-		y++;
+		yx[0]++;
 	}
 	return (0);
 }

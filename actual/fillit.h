@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/28 12:49:51 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:05:41 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int		pre_rec(char **block, int how_many);
 /*
 **Combining Blocks
 */
-int		actualinsert(char **map, char **block, int x, int y, char c);
+int		actualinsert(char **map, char **block, int arr[2], char c);
 int		*getrealyandx(char **block);
 char	**topleftblock(char **block, int realx, int realy);
-int		trytoinsert(char **map, char **block, int x, int y, char c);
+int		trytoinsert(char **map, char **block, int arr[2], char c);
 /*
 **Arraymaker
 */

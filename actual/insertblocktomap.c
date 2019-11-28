@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:12:33 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/27 15:29:01 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/28 13:10:25 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**topleftblock(char **block, int realx, int realy)
 	return (newblock);
 }
 
-int		trytoinsert(char **map, char **block, int x, int y, char c)
+int		trytoinsert(char **map, char **block, int arr[2], char c)
 {
 	int *map_size;
 	int yx[2];
@@ -51,12 +51,13 @@ int		trytoinsert(char **map, char **block, int x, int y, char c)
 	while (block[yx[0]])
 	{
 		yx[1] = 0;
-		while (block[yx[0]][yx[1]] && y + yx[0] < map_size[0]
-				&& x + yx[1] < map_size[1])
+		while (block[yx[0]][yx[1]] && arr[0] + yx[0] < map_size[0]
+				&& arr[1] + yx[1] < map_size[1])
 		{
-			if (block[yx[0]][yx[1]] == '#' && map[y + yx[0]][x + yx[1]] == '.')
+			if (block[yx[0]][yx[1]] == '#' &&
+				map[arr[0] + yx[0]][arr[1] + yx[1]] == '.')
 			{
-				map[y + yx[0]][x + yx[1]] = c;
+				map[arr[0] + yx[0]][arr[1] + yx[1]] = c;
 				inserted++;
 			}
 			yx[1]++;
@@ -66,13 +67,13 @@ int		trytoinsert(char **map, char **block, int x, int y, char c)
 	return (inserted == 4);
 }
 
-int		actualinsert(char **map, char **block, int x, int y, char c)
+int		actualinsert(char **map, char **block, int arr[2], char c)
 {
 	int *realyx;
 
 	realyx = getrealyandx(block);
 	block = topleftblock(block, realyx[1], realyx[0]);
-	if (trytoinsert(map, block, x, y, c) == 0)
+	if (trytoinsert(map, block, arr, c) == 0)
 	{
 		map_char_delet(map, c);
 		return (0);
