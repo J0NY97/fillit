@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 12:53:37 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/27 12:45:56 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:26:42 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,26 @@ int		error(void)
 	return (1);
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	char	**str;
 	int		how_many;
+	int		i;
 
+	i = 0;
 	str = NULL;
 	if (ac == 2)
 	{
-	//	printf("Here");
 		how_many = part1(av[1]);
-	//	printf("%d\n", how_many);
 		if (how_many < 1)
-		{
-		//	printf("Too few tetrimons in file!\n");
 			return (error());
-		}
 		str = part2(av[1], how_many, str);
-	//	printf("~~~~~~~~~~~Validity Check~~~~~~~~~~~\n");	
-		for (int i = 0; str[i] && i < how_many; i++)
+		while (str[i] && i < how_many)
 		{
-	//		printf("%d:\n%s\n", i, str[i]);
 			if (!validity_check(str[i], '.', '#'))
 				return (error());
+			i++;
 		}
-	//	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		pre_rec(str, how_many);
 	}
 	else

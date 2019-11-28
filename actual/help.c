@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:24:56 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/27 15:25:59 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/28 11:33:04 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,20 @@ char	**makenewblock(char emptychar, int size)
 void	print_block(char **block)
 {
 	int i;
+	int x;
 
 	i = 0;
+	x = 0;
 	while (block[i])
 	{
-		printf("%s\n", block[i]);
+		while (block[i][x])
+		{
+			write(1, &block[i][x], 1);
+			x++;
+		}
+		write(1, "\n", 1);
 		i++;
+		x = 0;
 	}
 }
 

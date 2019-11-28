@@ -6,15 +6,15 @@
 #    By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 14:25:24 by jsalmi            #+#    #+#              #
-#    Updated: 2019/11/27 15:28:51 by jsalmi           ###   ########.fr        #
+#    Updated: 2019/11/28 10:40:27 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 SRCS = ./insertblocktomap.c\
 	   ./main.c\
-	   ./horror2.c\
-	   ./arraymakertester.c\
+	   ./recursion_solver.c\
+	   ./arraymaker.c\
 	   ./get_next_line.c\
 	   ./validitychecks.c\
 	   ./char_delet.c\
