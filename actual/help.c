@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:24:56 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/28 11:33:04 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:27:08 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**strto2dstr(char *input)
 	int		y;
 	int		x;
 
-	str = ft_memalloc(sizeof(char *) * 5);
+	str = (char **)malloc(sizeof(char *) * 5);
 	str[0] = ft_memalloc(5);
 	str[1] = ft_memalloc(5);
 	str[2] = ft_memalloc(5);
@@ -48,11 +48,13 @@ char	**makenewblock(char emptychar, int size)
 	int		x;
 
 	i = 0;
-	newblock = (char **)malloc(sizeof(char *) * (size + 1));
+	if(!(newblock = (char **)malloc(sizeof(char *) * (size + 1))))
+		return (0);
 	while (i < size)
 	{
 		x = 0;
-		newblock[i] = (char *)malloc(sizeof(char) * (size + 1));
+		if(!(newblock[i] = (char *)malloc(sizeof(char) * (size + 1))))
+			return (0);
 		while (x < size)
 		{
 			newblock[i][x] = emptychar;

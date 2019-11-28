@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:12:33 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/28 13:10:25 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/11/28 14:31:31 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		actualinsert(char **map, char **block, int arr[2], char c)
 	block = topleftblock(block, realyx[1], realyx[0]);
 	if (trytoinsert(map, block, arr, c) == 0)
 	{
+		ft_strdel(block);
 		map_char_delet(map, c);
 		return (0);
 	}
