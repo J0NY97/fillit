@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:23:45 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/28 11:26:58 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:49:51 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int		trytoinsert(char **map, char **block, int x, int y, char c);
 /*
 **Arraymaker
 */
-int		part1(char *file);
-char	**part2(char *file, int how_many, char **str);
+char	**part0(char *file, int how_many, char **str);
+int		part1(int fd, int i);
+char	**part2(int how_many, char **str, int fd);
 /*
 **Validity Checks
 */

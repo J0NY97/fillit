@@ -6,33 +6,47 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:50:07 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/28 11:26:23 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:53:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "fillit.h"
 
-int		part1(char *file)
+char	**part0(char *file, int how_many, char **str)
 {
-	int		how_many;
+	int fd;
+	int i;
+
+	i = 0;
+	fd = open(file, O_RDONLY);
+	how_many = part1(fd, i);
+	close(fd);
+	if (how_many <= 0)
+		return (str);
+	fd = open(file, O_RDONLY);
+	str = part2(how_many, str, fd);
+	close(fd);
+	return (str);
+}
+
+int		part1(int fd, int how_many)
+{
 	int		x;
-	int		fd;
 	char	*line;
 
 	x = 0;
-	how_many = 0;
-	fd = open(file, O_RDONLY);
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (ft_strcmp(line, "\n") == -10)
+		if (ft_strcmp(line, "\n") == -10 && x != 0)
 		{
 			x = 0;
 			how_many++;
 		}
 		else
 		{
-			if ((ft_strlen(line) != 4) || x > 4)
+			if ((ft_strlen(line) != 4) || x > 4 ||
+					(ft_strcmp(line, "\n") == -10 && x == 0))
 				return (-1);
 			x++;
 		}
@@ -41,19 +55,15 @@ int		part1(char *file)
 		return (-1);
 	if (x == 4)
 		how_many++;
-	close(fd);
 	return (how_many);
 }
 
-char	**part2(char *file, int how_many, char **str)
+char	**part2(int how_many, char **str, int fd)
 {
 	char	*line;
-	int		fd;
 	int		i;
-	int		t;
 
 	i = 0;
-	t = 0;
 	str = (char **)malloc(sizeof(char *) * how_many + 1);
 	str[how_many + 1] = 0;
 	while (how_many >= 0)
@@ -61,8 +71,7 @@ char	**part2(char *file, int how_many, char **str)
 		str[how_many] = ft_strnew(0);
 		how_many--;
 	}
-	fd = open(file, O_RDONLY);
-	while ((t = get_next_line(fd, &line)) == 1)
+	while (get_next_line(fd, &line) == 1)
 	{
 		if (ft_strcmp(line, "\n") < 0)
 			i++;
@@ -75,6 +84,5 @@ char	**part2(char *file, int how_many, char **str)
 			str[i] = ft_strjoin(str[i], "\n");
 		}
 	}
-	close(fd);
 	return (str);
 }
