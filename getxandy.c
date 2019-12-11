@@ -6,7 +6,7 @@
 /*   By: jsalmi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:28:16 by jsalmi            #+#    #+#             */
-/*   Updated: 2019/11/27 15:28:39 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/12/02 17:39:52 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,8 @@ int		getrealy(char **block)
 	return (realy);
 }
 
-int		*getrealyandx(char **block)
+void	getrealyandx(int *arr, char **block)
 {
-	int *realyx;
-
-	realyx = malloc(2);
-	realyx[0] = getrealy(block);
-	realyx[1] = getrealx(block);
-	return (realyx);
+	arr[0] = getrealy(block);
+	arr[1] = getrealx(block);
 }

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:56 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/28 13:02:02 by jsalmi           ###   ########.fr       */
+/*   Updated: 2019/12/05 16:08:44 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int	pre_rec(char **block, int how_many)
 	map = makenewblock('.', size);
 	while (recursion(block, map, i, how_many) == 0)
 	{
-		free(map);
+		deletevittuallt(map, 1);
 		map = makenewblock('.', size++);
 	}
 	print_block(map);
+	deletevittuallt(map, 1);
 	return (1);
 }
 

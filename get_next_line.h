@@ -6,14 +6,14 @@
 /*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:38:24 by nneronin          #+#    #+#             */
-/*   Updated: 2019/11/07 15:03:47 by nneronin         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:26:17 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 2056
+# define BUFF_SIZE 5
 # include <stdlib.h>
 # include <unistd.h>
 # include "./libft/libft.h"
